@@ -1,12 +1,23 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <transition name="fade">
+      <component :is="layout"><router-view /></component>
+    </transition>
   </div>
 </template>
+
+<script>
+import EmptyLayout from "@/layouts/EmptyLayout";
+import MainLayout from "@/layouts/MainLayout";
+export default {
+  components: { EmptyLayout, MainLayout },
+  computed: {
+    layout() {
+      return (this.$route.meta.layout || "empty") + "-layout";
+    },
+  },
+};
+</script>
 
 <style lang="scss">
 #app {
