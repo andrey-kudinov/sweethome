@@ -30,18 +30,25 @@ const routes = [
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
-      return savedPosition
+      return savedPosition;
     } else {
       return new Promise((resolve) => {
         setTimeout(() => {
-          resolve({ x: 0, y: 0 })
-        }, 500)
-      })
+          resolve({ x: 0, y: 0 });
+        }, 500);
+      });
     }
   },
   routes,
+});
+
+router.beforeEach(async (to, from, next) => {
+  if (!localStorage.getItem("user")) {
+    return next({ path: "/login" });
+  }
+  return next();
 });
 
 export default router;

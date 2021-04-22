@@ -11,9 +11,9 @@
       leave-active-class="animated bounceOutRight"
     >
       <section class="form" v-if="!register">
-        <input type="email" class="email" />
-        <input type="text" class="password" />
-        <button class="btn btn_ligth-blue submit" @click="toHome">Войти</button>
+        <input type="email" class="email" v-model="email" />
+        <input type="text" class="password" v-model="password"/>
+        <button class="btn btn_ligth-blue submit" @click="logIn">Войти</button>
         <button class="btn btn_white submit" @click="register = !register">
           Зарегистрироваться
         </button>
@@ -42,11 +42,22 @@ export default {
   data() {
     return {
       register: false,
+      email: "",
+      password: "",
     };
   },
   methods: {
-    toHome() {
-      this.$router.push("/");
+    async logIn() {
+      const formData = {
+        email: this.email,
+        password: this.password,
+      };
+      try {
+        await this.$store.dispatch("login", formData);
+        this.$router.push("/");
+      } catch (e) {
+        console.log('login e -', e);
+      }
     },
   },
 };
