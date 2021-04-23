@@ -5,12 +5,15 @@ import store from "./store";
 import "/src/assets/styles/styles.css";
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
-
+import dateFilter from '@/filters/date.filter'
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 
 Vue.config.productionTip = false;
+
+Vue.filter('date', dateFilter)
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBNnu_cP9p67yVXRatnH3WUC0nmfdOCjbY",

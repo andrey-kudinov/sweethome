@@ -13,7 +13,7 @@
       <section class="form" v-if="!register">
         <input type="email" class="email" v-model="email" />
         <input type="text" class="password" v-model="password"/>
-        <button class="btn btn_ligth-blue submit" @click="logIn">Войти</button>
+        <button class="btn btn_ligth-blue submit" @click="auth">Войти</button>
         <button class="btn btn_white submit" @click="register = !register">
           Зарегистрироваться
         </button>
@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: "Login",
   data() {
@@ -47,16 +49,17 @@ export default {
     };
   },
   methods: {
-    async logIn() {
+    ...mapActions(['logIn']),
+    async auth() {
       const formData = {
         email: this.email,
         password: this.password,
       };
       try {
-        await this.$store.dispatch("login", formData);
+        await this.logIn(formData);
         this.$router.push("/");
       } catch (e) {
-        console.log('login e -', e);
+        console.log('auth e -', e);
       }
     },
   },

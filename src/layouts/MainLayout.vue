@@ -3,13 +3,16 @@
     <Header class="header" />
 
     <main class="content">
-      <Sidebar class="sidebar" :class="{ 'sidebar-hide': isFull }" />
-      <div
-        class="page"
-        @click="isFull = !isFull"
-        :class="{ 'page-full': isFull }"
-      >
-        <router-view />
+      <Sidebar
+        class="sidebar"
+        :class="{ 'sidebar-hide': isFull }"
+        :isFull="isFull"
+        @expand="expand"
+      />
+      <div class="page" :class="{ 'page-full': isFull }">
+        <transition name="fade" mode="out-in">
+          <router-view />
+        </transition>
       </div>
     </main>
 
@@ -34,7 +37,11 @@ export default {
       isFull: false,
     };
   },
-  methods: {},
+  methods: {
+    expand() {
+      this.isFull = !this.isFull;
+    },
+  },
 };
 </script>
 

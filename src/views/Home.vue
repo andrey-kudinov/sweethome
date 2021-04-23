@@ -3,26 +3,28 @@
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <div class="cards cards_first">
-      <div class="card card_first" v-for="(card, i) in 4" :key="i">
+      <div class="card card_first" v-for="(card, i) in 1" :key="i">
         <div class="desc">
           <div class="smile">
-            <img :src="require('@/assets/img/circle_blue.svg')" alt="">
+            <img :src="require('@/assets/img/circle_blue.svg')" alt="" />
           </div>
         </div>
-        <textarea name="" id="" cols="30" rows="10" class="textarea"></textarea>
-        <button class="btn btn_white btn_add" v-if="isAdd">Добавить</button>
+        <textarea name="" id="" cols="30" rows="10" class="textarea" v-model="text_1"></textarea>
+        <button class="btn btn_white btn_add" v-if="isAdd" @click="add(name_1, text_1)">
+          Добавить
+        </button>
         <button class="btn btn_white btn_add" v-else>Редактировать</button>
       </div>
     </div>
     <div class="cards cards_second">
-      <div class="card card_second" v-for="(card, i) in 4" :key="i">
+      <div class="card card_second" v-for="(card, i) in 1" :key="i">
         <div class="desc">
           <div class="smile">
-            <img :src="require('@/assets/img/cat.svg')" alt="">
+            <img :src="require('@/assets/img/cat.svg')" alt="" />
           </div>
         </div>
-        <textarea name="" id="" class="textarea"></textarea>
-        <button class="btn btn_white btn_add" v-if="isAdd">Добавить</button>
+        <textarea name="" id="" class="textarea" v-model="text_2"></textarea>
+        <button class="btn btn_white btn_add" v-if="isAdd" @click="add(name_2, text_2)">Добавить</button>
         <button class="btn btn_white btn_add" v-else>Редактировать</button>
       </div>
     </div>
@@ -31,16 +33,35 @@
 
 <script>
 // import HelloWorld from '@/components/HelloWorld.vue'
+import dateFilter from "@/filters/date.filter";
+import { mapActions } from "vuex";
 
 export default {
   name: "Home",
   data() {
     return {
-      isAdd: false,
-    }
+      isAdd: true,
+      name_1: "Andrey",
+      name_2: "Nyuta",
+      text_1: "",
+      text_2: "",
+      date: new Date(),
+    };
   },
-  components: {
-    // HelloWorld
+  methods: {
+    ...mapActions(["createNote"]),
+    async add(userName, userText) {
+      try {
+        const note = await this.createNote({
+          name: userName,
+          text: userText,
+          date: dateFilter(this.date, "date"),
+        });
+        console.log("note -", note);
+      } catch (e) {
+        console.log('add e -', e);
+      }
+    },
   },
 };
 </script>
@@ -67,8 +88,8 @@ export default {
   grid-column: 3/4;
 }
 .card {
-  width: 200px;
-  height: 200px;
+  width: 350px;
+  max-height: 350px;
   display: flex;
   flex-direction: column;
   padding: 15px;
@@ -107,6 +128,8 @@ export default {
   resize: none;
   margin-bottom: 15px;
   background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
 }
 .btn_add {
   width: 100%;
