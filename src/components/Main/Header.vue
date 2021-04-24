@@ -53,18 +53,18 @@ export default {
       const favicon = document.getElementById("favicon");
       const href = [
         // "/favicon.ico",
-        "/orange.svg",
-        "/cherry.svg",
-        "/chock.svg",
-        "/ice.svg",
-        "/laptop.svg",
-        "/balloon.svg",
-        "/teddy.svg",
-        "/present.svg",
-        "/pie.svg",
-        "/bird.svg",
-        "/photo.svg",
-        "/home.svg",
+        "/sweethome/orange.svg",
+        "/sweethome/cherry.svg",
+        "/sweethome/chock.svg",
+        "/sweethome/ice.svg",
+        "/sweethome/laptop.svg",
+        "/sweethome/balloon.svg",
+        "/sweethome/teddy.svg",
+        "/sweethome/present.svg",
+        "/sweethome/pie.svg",
+        "/sweethome/bird.svg",
+        "/sweethome/photo.svg",
+        "/sweethome/home.svg",
       ];
       favicon.href = href[Math.floor(Math.random() * href.length)];
     }
