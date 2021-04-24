@@ -18,6 +18,13 @@ const routes = [
       import("@/views/History.vue"),
   },
   {
+    path: "/profile",
+    name: "Profile",
+    meta: { layout: "main", log: true },
+    component: () =>
+      import("@/views/Profile.vue"),
+  },
+  {
     path: "/login",
     name: "Login",
     meta: { layout: "empty" },

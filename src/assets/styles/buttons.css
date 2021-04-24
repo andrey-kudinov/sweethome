@@ -44,11 +44,34 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 0.3s;
+  position: relative;
 }
-.btn_white:hover {
-  background: #f7f7f7;
+.btn_white:before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  left: 51%;
+  right: 51%;
+  top: 0;
+  background: linear-gradient(to right, #8ca6db, #b993d6);
+  height: 45px;
+  transition: .4s;
+  opacity: .5;
 }
+.btn_white:hover:before{
+  left: 0;
+  right: 0;
+}
+.btn_white:hover{
+  border: 1px solid #b993d6;
+}
+/* .btn_white:hover {
+  background: #0a467e;
+  opacity: .1;
+  position: absolute;
+  left: 51%;
+  right: 51%;
+} */
 .btn_white:active {
   background: #ffffff;
 }

@@ -2,6 +2,10 @@
   <div class="home">
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <transition name="fade">
+      <div class="overlay" v-if="toast.toast"></div>
+    </transition>
+    <Toast :toast="toast" />
     <div class="cards cards_first">
       <div class="card card_first" v-for="(card, i) in 1" :key="i">
         <div class="desc">
@@ -34,10 +38,15 @@
 <script>
 // import HelloWorld from '@/components/HelloWorld.vue'
 import dateFilter from "@/filters/date.filter";
+import Toast from "@/components/Toast";
+
 import { mapActions } from "vuex";
 
 export default {
   name: "Home",
+  components: {
+    Toast,
+  } ,
   data() {
     return {
       isAdd: true,
@@ -46,6 +55,9 @@ export default {
       text_1: "",
       text_2: "",
       date: new Date(),
+      toast: {
+        toast: false,
+      },
     };
   },
   methods: {
@@ -58,6 +70,12 @@ export default {
           date: dateFilter(this.date, "date"),
         });
         console.log("note -", note);
+        this.toast.toast = true;
+        setTimeout(() => {
+          this.toast.toast = false;
+        }, 2000);
+        this.text_1 = ""
+        this.text_2 = ""
       } catch (e) {
         console.log('add e -', e);
       }
@@ -67,6 +85,17 @@ export default {
 </script>
 
 <style scoped>
+.overlay {
+  background: #fff;
+  position: absolute;
+  box-sizing: content-box;
+  z-index: 10;
+  opacity: 0.3;
+  transition: 0.5s ease-in-out;
+  width: 100vw;
+  height: 100%;
+  display: block;
+}
 .home {
   width: 100%;
   height: 100%;
@@ -76,6 +105,7 @@ export default {
   column-gap: 40px;
   row-gap: 20px;
   padding: 40px 0;
+  position: relative;
 }
 .cards {
   display: flex;

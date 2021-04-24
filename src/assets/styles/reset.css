@@ -125,7 +125,7 @@ html {
  */
 
 a:focus {
-    outline: thin dotted;
+    /* outline: thin dotted; */
 }
 
 /**

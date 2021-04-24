@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-835f93b8"],{3873:function(n,t,c){"use strict";c("8203")},8203:function(n,t,c){},c66d:function(n,t,c){"use strict";c.r(t);var e=function(){var n=this,t=n.$createElement,c=n._self._c||t;return c("div",{staticClass:"page"},[n._v(" Профиль ")])},s=[],u=(c("3873"),c("2877")),i={},a=Object(u["a"])(i,e,s,!1,null,"47b06730",null);t["default"]=a.exports}}]);
+//# sourceMappingURL=chunk-835f93b8.12f142f3.js.map
