@@ -1,19 +1,22 @@
-import Vue from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
-import "/src/assets/styles/styles.css";
-import Vuetify from "vuetify";
-import "vuetify/dist/vuetify.min.css";
+import Vue        from "vue";
+import App        from "./App.vue";
+import store      from "./store";
+import router     from "./router";
+import Vuetify    from "vuetify";
 import dateFilter from '@/filters/date.filter'
+import VueCroppie from "vue-croppie";
+
+import "vuetify/dist/vuetify.min.css";
+import "/src/assets/styles/styles.css";
+import "croppie/croppie.css";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 
 Vue.config.productionTip = false;
 
+Vue.use(VueCroppie);
 Vue.filter('date', dateFilter)
-
 
 const firebaseConfig = {
   apiKey: "AIzaSyBNnu_cP9p67yVXRatnH3WUC0nmfdOCjbY",
@@ -33,6 +36,18 @@ let app;
 firebase.auth().onAuthStateChanged(() => {
   if (!app) {
     app = new Vue({
+      data() {
+        return {
+          user_1: {
+            avatar: null,
+            name: '',
+          },
+          user_2: {
+            avatar: null,
+            name: '',
+          }
+        }
+      },
       router,
       store,
       Vuetify,

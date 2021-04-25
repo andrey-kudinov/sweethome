@@ -65,17 +65,10 @@
 .btn_white:hover{
   border: 1px solid #b993d6;
 }
-/* .btn_white:hover {
-  background: #0a467e;
-  opacity: .1;
-  position: absolute;
-  left: 51%;
-  right: 51%;
-} */
 .btn_white:active {
   background: #ffffff;
+  color: #b993d6;
 }
-
 .btn_white img {
   margin-right: 11px;
   margin-top: 1px;

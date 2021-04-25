@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './auth'
+import user from './user'
 import notes from './notes'
 
 Vue.use(Vuex)
@@ -23,6 +24,6 @@ export default new Vuex.Store({
     error: s => s.error
   },
   modules: {
-    auth, notes
+    auth, notes, user
   }
 })

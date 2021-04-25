@@ -10,12 +10,12 @@
       enter-active-class="animated tada"
       leave-active-class="animated bounceOutRight"
     >
-      <section class="form" v-if="!register">
+      <section class="form" v-if="!isReg">
         <input type="email" class="email" v-model="email" />
-        <input type="text" class="password" v-model="password"/>
+        <input type="text" class="password" v-model="password" />
         <button class="btn btn_ligth-blue submit" @click="auth">Войти</button>
-        <button class="btn btn_white submit" @click="register = !register">
-          Зарегистрироваться
+        <button class="btn btn_white submit" @click="isReg = !isReg">
+          Перейти к регистрации
         </button>
       </section>
     </transition>
@@ -24,11 +24,11 @@
       enter-active-class="animated tada"
       leave-active-class="animated bounceOutRight"
     >
-      <section class="form" v-if="register">
-        <input type="email" class="email" />
-        <input type="text" class="password" />
-        <button class="btn btn_ligth-blue submit">Создать</button>
-        <button class="btn btn_white submit" @click="register = !register">
+      <section class="form" v-if="isReg">
+        <input type="email" class="email" v-model="regEmail"/>
+        <input type="text" class="password" v-model="regPassword"/>
+        <button class="btn btn_ligth-blue submit" @click="reg">Создать</button>
+        <button class="btn btn_white submit" @click="isReg = !isReg">
           Назад
         </button>
       </section>
@@ -37,19 +37,21 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 
 export default {
   name: "Login",
   data() {
     return {
-      register: false,
+      isReg: false,
       email: "",
       password: "",
+      regEmail: "",
+      regPassword: "",
     };
   },
   methods: {
-    ...mapActions(['logIn']),
+    ...mapActions(["logIn", "register"]),
     async auth() {
       const formData = {
         email: this.email,
@@ -59,8 +61,18 @@ export default {
         await this.logIn(formData);
         this.$router.push("/");
       } catch (e) {
-        console.log('auth e -', e);
+        console.log("auth e -", e);
       }
+    },
+    async reg() {
+      const formData = {
+        email: this.regEmail,
+        password: this.regPassword,
+      };
+      try {
+        await this.register(formData);
+        this.$router.push("/");
+      } catch (e) {console.log("reg e -", e);}
     },
   },
 };

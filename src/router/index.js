@@ -6,9 +6,9 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Home",
+    name: "Add",
     meta: { layout: "main", log: true },
-    component: () => import("@/views/Home.vue"),
+    component: () => import("@/views/Add.vue"),
   },
   {
     path: "/history",
