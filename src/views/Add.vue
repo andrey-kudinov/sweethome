@@ -11,8 +11,19 @@
             <img :src="require('@/assets/img/circle_blue.svg')" alt="" />
           </div>
         </div>
-        <textarea name="" id="" cols="30" rows="10" class="textarea" v-model="text_1"></textarea>
-        <button class="btn btn_white btn_add" v-if="isAdd" @click="add(name_1, text_1)">
+        <textarea
+          name=""
+          id=""
+          cols="30"
+          rows="10"
+          class="textarea"
+          v-model="text_1"
+        ></textarea>
+        <button
+          class="btn btn_white btn_add"
+          v-if="isAdd"
+          @click="add(name_1, text_1)"
+        >
           Добавить
         </button>
         <button class="btn btn_white btn_add" v-else>Редактировать</button>
@@ -26,7 +37,13 @@
           </div>
         </div>
         <textarea name="" id="" class="textarea" v-model="text_2"></textarea>
-        <button class="btn btn_white btn_add" v-if="isAdd" @click="add(name_2, text_2)">Добавить</button>
+        <button
+          class="btn btn_white btn_add"
+          v-if="isAdd"
+          @click="add(name_2, text_2)"
+        >
+          Добавить
+        </button>
         <button class="btn btn_white btn_add" v-else>Редактировать</button>
       </div>
     </div>
@@ -43,7 +60,7 @@ export default {
   name: "Add",
   components: {
     Toast,
-  } ,
+  },
   data() {
     return {
       isAdd: true,
@@ -71,10 +88,10 @@ export default {
         setTimeout(() => {
           this.toast.toast = false;
         }, 2000);
-        this.text_1 = ""
-        this.text_2 = ""
+        this.text_1 = "";
+        this.text_2 = "";
       } catch (e) {
-        console.log('add e -', e);
+        console.log("add e -", e);
       }
     },
   },
@@ -104,6 +121,13 @@ export default {
   padding: 40px 0;
   position: relative;
 }
+@media all and (max-width: 767px) {
+  .home {
+    grid-template-columns: 1fr;
+    place-items: center;
+    padding: 20px 0;
+  }
+}
 .cards {
   display: flex;
   flex-direction: column;
@@ -114,6 +138,14 @@ export default {
 .cards_second {
   grid-column: 3/4;
 }
+@media all and (max-width: 767px) {
+  .cards_first {
+    grid-column: span 1;
+  }
+  .cards_second {
+    grid-column: span 1;
+  }
+}
 .card {
   width: 350px;
   max-height: 350px;
@@ -121,12 +153,14 @@ export default {
   flex-direction: column;
   padding: 15px;
   margin-bottom: 20px;
-  background: linear-gradient(
-    to right,
-    #8ca6db,
-    #b993d6
-  );
+  background: linear-gradient(to right, #8ca6db, #b993d6);
   border-radius: 15px;
+}
+@media all and (max-width: 767px) {
+  .card {
+    width: 80vw;
+    padding: 10px;
+  }
 }
 .desc {
   display: flex;
@@ -160,6 +194,5 @@ export default {
   border-radius: 50%;
 }
 .result {
-
 }
 </style>

@@ -42,6 +42,58 @@
       </div>
     </div>
 
+    <div class="switchs">
+      <div class="switch switch_1">
+        <div class="switch__selection-controls__input">
+          <input
+            type="checkbox"
+            class="switch__check"
+            v-model="$root.user_1.isShow"
+            @click="$root.user_1.isShow = !$root.user_1.isShow"
+          />
+          <div
+            class="switch__track"
+            :class="{
+              'is-actived': $root.user_1.isShow,
+            }"
+          ></div>
+          <div
+            class="switch__thumb"
+            :class="{
+              'is-actived': $root.user_1.isShow,
+            }"
+          >
+            {{ $root.user_1.isShow ? "Вкл" : "Выкл" }}
+          </div>
+        </div>
+      </div>
+
+      <div class="switch switch_2">
+        <div class="switch__selection-controls__input">
+          <input
+            type="checkbox"
+            class="switch__check"
+            v-model="$root.user_2.isShow"
+            @click="$root.user_2.isShow = !$root.user_2.isShow"
+          />
+          <div
+            class="switch__track"
+            :class="{
+              'is-actived': $root.user_2.isShow,
+            }"
+          ></div>
+          <div
+            class="switch__thumb"
+            :class="{
+              'is-actived': $root.user_2.isShow,
+            }"
+          >
+            {{ $root.user_2.isShow ? "Вкл" : "Выкл" }}
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="buttons">
       <!-- <button class="btn btn_white btn_change" @click="changeFavicon">Сменить иконку</button> -->
       <button class="btn btn_white btn_out" @click="exit">Выйти</button>
@@ -58,6 +110,8 @@ export default {
       date: new Date(),
       interval_1: null,
       interval_2: null,
+      switch_1: true,
+      switch_2: true,
     };
   },
   mounted() {
@@ -116,11 +170,11 @@ export default {
       favicon.href = href[Math.floor(Math.random() * href.length)];
     },
     async exit() {
-      await this.$store.dispatch('logout')
-      this.$root.user_1.avatar = ''
-      this.$root.user_2.avatar = ''
+      await this.$store.dispatch("logout");
+      this.$root.user_1.avatar = "";
+      this.$root.user_2.avatar = "";
       localStorage.clear();
-      this.$router.push('/login')
+      this.$router.push("/login");
     },
   },
 };
@@ -134,6 +188,18 @@ export default {
     rgba(148, 187, 233, 1) 100%
   );
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@media all and (max-width: 767px) {
+  .header {
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+    row-gap: 15px;
+    padding: 20px 0;
+  }
 }
 .time {
   background: radial-gradient(
@@ -147,10 +213,10 @@ export default {
   font-weight: bold;
   border-radius: 15px;
 }
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+@media all and (max-width: 767px) {
+  .time {
+    justify-self: flex-start;
+  }
 }
 .buttons {
   display: flex;
@@ -170,6 +236,22 @@ a {
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
+.switchs {
+  display: none;
+}
+@media all and (max-width: 767px) {
+  .switchs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 180px;
+  }
+}
+.switch_1,
+.switch_2 {
+  grid-column: span 1;
+  display: flex;
+}
 .profile {
   display: flex;
   align-items: center;
@@ -178,6 +260,13 @@ a {
   color: #0a467e;
   font-weight: bold;
   margin-right: 15px;
+}
+@media all and (max-width: 767px) {
+  .time,
+  .buttons,
+  .profiles {
+    margin: 0;
+  }
 }
 .avatar {
   width: 40px;
@@ -194,7 +283,6 @@ a {
 }
 .tooltip {
   position: absolute;
-  /* left: 50%; */
   bottom: -510px;
   transform: translate(-50%, 0);
   z-index: 1;
@@ -220,11 +308,76 @@ a {
 .tooltip_1,
 .tooltip_2 {
   opacity: 0;
-  left: -25%;
+  left: -100%;
 }
 .avatar_1:hover .tooltip_1,
 .avatar_2:hover .tooltip_2 {
   opacity: 1;
   left: 50%;
+}
+@media all and (max-width: 767px) {
+  .tooltip {
+    width: 90%;
+    height: auto;
+    bottom: -310px;
+  }
+  .tooltip img {
+    margin-bottom: 5%;
+  }
+}
+.switch__selection-controls__input {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  height: 25px;
+  transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+}
+.switch__check {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 2;
+}
+.switch__track {
+  border-radius: 100px;
+  width: 80px;
+  height: 25px;
+  left: 2px;
+  position: absolute;
+  /* opacity: 0.6; */
+  right: 2px;
+  top: calc(50% - 12px);
+  background-color: #dadada;
+  pointer-events: none;
+  transition: inherit;
+}
+.switch__thumb {
+  border: 1px solid #dadada;
+  border-radius: 100px;
+  top: calc(50% - 12px);
+  height: 25px;
+  position: relative;
+  width: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+  background-color: #fff;
+  font-size: 12px;
+  color: #0a467e;
+  font-weight: bold;
+}
+.switch__track.is-actived {
+  background: rgba(148, 187, 233, 1);
+}
+.switch__thumb.is-actived {
+  transform: translate(40px, 0);
+}
+.switcher-wrap {
+  display: flex;
+  align-items: center;
 }
 </style>

@@ -78,6 +78,12 @@ export default {
   column-gap: 40px;
   justify-items: center;
 }
+@media all and (max-width: 767px) {
+  .profiles {
+    grid-template-columns: 1fr;
+    place-items: center;
+  }
+}
 .profile {
   display: flex;
   flex-direction: column;
@@ -88,5 +94,18 @@ export default {
 }
 .profile_second {
   grid-column: 3/4;
+}
+@media all and (max-width: 767px) {
+  .profile_first {
+    grid-column: span 1;
+  }
+  .profile_second {
+    grid-column: span 1;
+  }
+}
+@media all and (max-width: 767px) {
+  .profiles {
+    grid-template-columns: 1fr
+  }
 }
 </style>

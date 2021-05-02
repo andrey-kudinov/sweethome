@@ -67,11 +67,7 @@ export default {
 
 <style scoped>
 .wrap {
-  background: linear-gradient(
-    to right,
-    #8ca6db,
-    #b993d6
-  );
+  background: linear-gradient(to right, #8ca6db, #b993d6);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -95,7 +91,7 @@ a {
   font-weight: bold;
   position: relative;
   overflow: hidden;
-  transition: background .3s ease-in;
+  transition: background 0.3s ease-in;
 }
 a:before {
   content: "";
@@ -164,6 +160,21 @@ a:active {
   height: 100%;
   object-fit: cover;
   object-position: center;
+}
+@media all and (max-width: 767px) {
+  .arrow {
+    right: 20px;
+    width: 15px;
+    height: 15px;
+    filter: brightness(0.8);
+    top: 8px;
+  }
+  .arrow svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
 }
 .svg {
   fill: #b993d6;

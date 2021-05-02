@@ -9,167 +9,175 @@
       rel="stylesheet"
       type="text/css"
     />
-    <div class="cards cards_first">
-      <Loader v-if="loading" />
-      <div
-        class="card card_first"
-        v-for="(note, i) in notesAndrey"
-        :key="i"
-        :class="{ mh0: !note.enable, op1: !loading }"
-      >
-        <transition
-          name="custom-classes-transition"
-          enter-active-class="animated fadeInDown"
-          leave-active-class="animated fadeOutDown"
-          mode="out-in"
+    <transition name="fade">
+      <div class="cards cards_first" v-if="$root.user_2.isShow">
+        <Loader v-if="loading" />
+        <div
+          class="card card_first"
+          v-for="(note, i) in notesAndrey"
+          :key="i"
+          :class="{ mh0: !note.enable, op1: !loading }"
         >
-          <div class="del-overlay" v-if="delOverlay && edit_1 == i"></div>
-        </transition>
-        <transition name="fade">
-          <div class="card__wrap" v-if="note.enable">
-            <div class="pen" @click="toEdit_1(i)">
-              <img :src="require('@/assets/img/pencil.svg')" alt="" />
-            </div>
-            <transition
-              name="custom-classes-transition"
-              enter-active-class="animated bounceInRight"
-              leave-active-class="animated bounceOutLeft"
-            >
-              <div class="delete" v-if="edit_1 == i" @click="del(note.id)">
-                <img :src="require('@/assets/img/delete.svg')" alt="" />
+          <transition
+            name="custom-classes-transition"
+            enter-active-class="animated fadeInDown"
+            leave-active-class="animated fadeOutDown"
+            mode="out-in"
+          >
+            <div class="del-overlay" v-if="delOverlay && edit_1 == i"></div>
+          </transition>
+          <transition name="fade">
+            <div class="card__wrap" v-if="note.enable">
+              <div class="pen" @click="toEdit_1(i)">
+                <img :src="require('@/assets/img/pencil.svg')" alt="" />
               </div>
-            </transition>
-            <div class="desc">
-              <div class="smile">
-                <img :src="require('@/assets/img/circle_blue.svg')" alt="" />
-              </div>
-            </div>
-            <div class="date">{{ note.date }}</div>
-            <transition
-              name="custom-classes-transition"
-              enter-active-class="animated bounceInRight"
-              leave-active-class="animated bounceOutLeft"
-            >
-              <div class="text" v-html="note.textHTML" v-if="edit_1 != i"></div>
-            </transition>
-
-            <transition
-              name="custom-classes-transition"
-              enter-active-class="animated bounceInRight"
-              leave-active-class="animated bounceOutRight"
-            >
-              <textarea
-                name=""
-                id=""
-                class="textarea"
-                v-text="note.text"
-                v-if="edit_1 == i"
-                v-model="note.text"
-              ></textarea>
-            </transition>
-
-            <transition
-              name="custom-classes-transition"
-              enter-active-class="animated bounceInLeft"
-              leave-active-class="animated bounceOutLeft"
-            >
-              <button
-                v-if="edit_1 == i"
-                class="btn btn_white btn_add"
-                @click="update(note.id, note.text)"
+              <transition
+                name="custom-classes-transition"
+                enter-active-class="animated bounceInRight"
+                leave-active-class="animated bounceOutLeft"
               >
-                {{ !btnLoading ? "Сохранить" : "" }}
-                <Loader
-                  v-if="btnLoading"
-                  :class="{ 'btn-loader': btnLoading }"
-                />
-              </button>
-            </transition>
-          </div>
-        </transition>
-      </div>
-    </div>
+                <div class="delete" v-if="edit_1 == i" @click="del(note.id)">
+                  <img :src="require('@/assets/img/delete.svg')" alt="" />
+                </div>
+              </transition>
+              <div class="desc">
+                <div class="smile">
+                  <img :src="require('@/assets/img/circle_blue.svg')" alt="" />
+                </div>
+              </div>
+              <div class="date">{{ note.date }}</div>
+              <transition
+                name="custom-classes-transition"
+                enter-active-class="animated bounceInRight"
+                leave-active-class="animated bounceOutLeft"
+              >
+                <div
+                  class="text"
+                  v-html="note.textHTML"
+                  v-if="edit_1 != i"
+                ></div>
+              </transition>
 
-    <div class="cards cards_second">
-      <Loader v-if="loading" />
-      <div
-        class="card card_second"
-        v-for="(note, i) in notesNyuta"
-        :key="i"
-        :class="{ mh0: !note.enable, op1: !loading }"
-      >
-        <transition
-          name="custom-classes-transition"
-          enter-active-class="animated fadeInDown"
-          leave-active-class="animated fadeOutDown"
-          mode="out-in"
+              <transition
+                name="custom-classes-transition"
+                enter-active-class="animated bounceInRight"
+                leave-active-class="animated bounceOutRight"
+              >
+                <textarea
+                  name=""
+                  id=""
+                  class="textarea"
+                  v-text="note.text"
+                  v-if="edit_1 == i"
+                  v-model="note.text"
+                ></textarea>
+              </transition>
+
+              <transition
+                name="custom-classes-transition"
+                enter-active-class="animated bounceInLeft"
+                leave-active-class="animated bounceOutLeft"
+              >
+                <button
+                  v-if="edit_1 == i"
+                  class="btn btn_white btn_add"
+                  @click="update(note.id, note.text)"
+                >
+                  {{ !btnLoading ? "Сохранить" : "" }}
+                  <Loader
+                    v-if="btnLoading"
+                    :class="{ 'btn-loader': btnLoading }"
+                  />
+                </button>
+              </transition>
+            </div>
+          </transition>
+        </div>
+      </div>
+    </transition>
+
+    <transition name="fade">
+      <div class="cards cards_second" v-if="$root.user_1.isShow">
+        <Loader v-if="loading" />
+        <div
+          class="card card_second"
+          v-for="(note, i) in notesNyuta"
+          :key="i"
+          :class="{ mh0: !note.enable, op1: !loading }"
         >
-          <div class="del-overlay" v-if="delOverlay && edit_2 == i"></div>
-        </transition>
-        <transition name="fade">
-          <div class="card__wrap" v-if="note.enable">
-            <div class="pen" @click="toEdit_2(i)">
-              <img :src="require('@/assets/img/pencil.svg')" alt="" />
-            </div>
-            <transition
-              name="custom-classes-transition"
-              enter-active-class="animated bounceInRight"
-              leave-active-class="animated bounceOutLeft"
-            >
-              <div class="delete" v-if="edit_2 == i" @click="del(note.id)">
-                <img :src="require('@/assets/img/delete.svg')" alt="" />
+          <transition
+            name="custom-classes-transition"
+            enter-active-class="animated fadeInDown"
+            leave-active-class="animated fadeOutDown"
+            mode="out-in"
+          >
+            <div class="del-overlay" v-if="delOverlay && edit_2 == i"></div>
+          </transition>
+          <transition name="fade">
+            <div class="card__wrap" v-if="note.enable">
+              <div class="pen" @click="toEdit_2(i)">
+                <img :src="require('@/assets/img/pencil.svg')" alt="" />
               </div>
-            </transition>
-            <div class="desc">
-              <div class="smile">
-                <img :src="require('@/assets/img/cat.svg')" alt="" />
-              </div>
-            </div>
-            <div class="date text-rose">{{ note.date }}</div>
-            <transition
-              name="custom-classes-transition"
-              enter-active-class="animated bounceInRight"
-              leave-active-class="animated bounceOutLeft"
-            >
-              <div
-                class="text text-rose"
-                v-html="note.textHTML"
-                v-if="edit_2 != i"
-              ></div>
-            </transition>
-
-            <transition
-              name="custom-classes-transition"
-              enter-active-class="animated bounceInRight"
-              leave-active-class="animated bounceOutRight"
-            >
-              <textarea
-                name=""
-                id=""
-                class="textarea"
-                v-text="note.text"
-                v-if="edit_2 == i"
-                v-model="note.text"
-              ></textarea>
-            </transition>
-
-            <transition
-              name="custom-classes-transition"
-              enter-active-class="animated bounceInLeft"
-              leave-active-class="animated bounceOutLeft"
-            >
-              <button
-                v-if="edit_2 == i"
-                class="btn btn_white btn_add"
-                @click="update(note.id, note.text)"
+              <transition
+                name="custom-classes-transition"
+                enter-active-class="animated bounceInRight"
+                leave-active-class="animated bounceOutLeft"
               >
-                Сохранить
-              </button>
-            </transition>
-          </div>
-        </transition>
+                <div class="delete" v-if="edit_2 == i" @click="del(note.id)">
+                  <img :src="require('@/assets/img/delete.svg')" alt="" />
+                </div>
+              </transition>
+              <div class="desc">
+                <div class="smile">
+                  <img :src="require('@/assets/img/cat.svg')" alt="" />
+                </div>
+              </div>
+              <div class="date text-rose">{{ note.date }}</div>
+              <transition
+                name="custom-classes-transition"
+                enter-active-class="animated bounceInRight"
+                leave-active-class="animated bounceOutLeft"
+              >
+                <div
+                  class="text text-rose"
+                  v-html="note.textHTML"
+                  v-if="edit_2 != i"
+                ></div>
+              </transition>
+
+              <transition
+                name="custom-classes-transition"
+                enter-active-class="animated bounceInRight"
+                leave-active-class="animated bounceOutRight"
+              >
+                <textarea
+                  name=""
+                  id=""
+                  class="textarea"
+                  v-text="note.text"
+                  v-if="edit_2 == i"
+                  v-model="note.text"
+                ></textarea>
+              </transition>
+
+              <transition
+                name="custom-classes-transition"
+                enter-active-class="animated bounceInLeft"
+                leave-active-class="animated bounceOutLeft"
+              >
+                <button
+                  v-if="edit_2 == i"
+                  class="btn btn_white btn_add"
+                  @click="update(note.id, note.text)"
+                >
+                  Сохранить
+                </button>
+              </transition>
+            </div>
+          </transition>
+        </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -294,6 +302,18 @@ export default {
   padding: 40px 0;
   position: relative;
 }
+@media all and (max-width: 767px) {
+  .home {
+    /* min-height: 100vh; */
+    padding: 20px 0;
+  }
+}
+@media all and (max-width: 767px) {
+  .home {
+    grid-template-columns: 1fr;
+    place-items: center;
+  }
+}
 .overlay {
   background: #fff;
   position: absolute;
@@ -326,6 +346,14 @@ export default {
 .cards_second {
   grid-column: 3/4;
 }
+@media all and (max-width: 767px) {
+  .cards_first {
+    grid-column: span 1;
+  }
+  .cards_second {
+    grid-column: span 1;
+  }
+}
 .card {
   width: 350px;
   max-height: 350px;
@@ -340,6 +368,12 @@ export default {
   position: relative;
   transition: 0.5s ease-in;
   opacity: 0;
+}
+@media all and (max-width: 767px) {
+  .card {
+    width: 80vw;
+    padding: 10px;
+  }
 }
 .pen {
   width: 25px;

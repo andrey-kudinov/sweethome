@@ -41,10 +41,12 @@ firebase.auth().onAuthStateChanged(() => {
           user_1: {
             avatar: null,
             name: '',
+            isShow: true,
           },
           user_2: {
             avatar: null,
             name: '',
+            isShow: true,
           }
         }
       },

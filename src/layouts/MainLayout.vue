@@ -56,10 +56,16 @@ export default {
     /* "sd sd sd sd main main main main main main main main" */
     "ft ft ft ft ft ft ft ft ft ft ft ft";
   min-height: 100vh;
+  overflow: hidden;
 }
 .header {
   grid-area: hd;
   height: 100px;
+}
+@media all and (max-width: 767px) {
+  .header {
+    height: auto;
+  }
 }
 .footer {
   grid-area: ft;
@@ -69,19 +75,43 @@ export default {
   grid-area: main;
   display: flex;
 }
+@media all and (max-width: 767px) {
+  .content {
+    flex-direction: column;
+  }
+}
 .sidebar {
   grid-area: sd;
   width: 25%;
   transition: 0.3s;
 }
+@media all and (max-width: 767px) {
+  .sidebar {
+    width: 100%;
+    transition: 0.7s ease;
+  }
+}
 .sidebar-hide {
   width: 0;
+}
+@media all and (max-width: 767px) {
+  .sidebar-hide {
+    border-radius: 10px;
+    padding: 8px 31px 25px 25px;
+    margin-top: 10px;
+    /* background: #fff; */
+  }
 }
 .page {
   width: 75%;
   display: grid;
   place-items: center;
   transition: 0.3s;
+}
+@media (max-width: 767px) {
+  .page {
+    width: 100%;
+  }
 }
 .page-full {
   width: 100%;
