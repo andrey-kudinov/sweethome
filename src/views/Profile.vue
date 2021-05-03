@@ -89,6 +89,11 @@ export default {
   flex-direction: column;
   align-items: center;
 }
+@media all and (max-width: 767px) {
+  .profile {
+    margin-bottom: 20px;
+  }
+}
 .profile_first {
   grid-column: 2/3;
 }

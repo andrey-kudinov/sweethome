@@ -274,6 +274,7 @@ a {
   overflow: hidden;
   border-radius: 50%;
   cursor: pointer;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);
 }
 .avatar img {
   width: 100%;
@@ -353,6 +354,7 @@ a {
   background-color: #dadada;
   pointer-events: none;
   transition: inherit;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);
 }
 .switch__thumb {
   border: 1px solid #dadada;

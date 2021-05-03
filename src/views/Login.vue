@@ -106,4 +106,12 @@ input {
   color: #56565a;
   background: #fff;
 }
+@media (max-width: 767px) {
+  .form {
+    width: 90vw;
+  }
+  input {
+    width: 100%;
+  }
+}
 </style>

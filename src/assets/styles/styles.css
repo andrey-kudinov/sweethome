@@ -2,3 +2,11 @@
 @import './buttons.css';
 @import './plugins.css';
 @import './reset.css';
+
+.card {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+textarea {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);
+}

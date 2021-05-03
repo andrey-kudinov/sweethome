@@ -60,7 +60,7 @@
     </div>
 
     <div class="inputs">
-      <input type="text" class="name" v-model="name" />
+      <input type="text" class="name" v-model="name" placeholder="Имя"/>
     </div>
 
     <button class="btn btn_white btn_save" @click="changeName">
@@ -169,6 +169,11 @@ export default {
   align-items: center;
   margin-bottom: 20px;
 }
+@media (max-width: 767px) {
+  .buttons {
+    width: 100%;
+  }
+}
 .btn_crop {
   margin: 10px 0;
 }
@@ -192,6 +197,16 @@ input {
   background: linear-gradient(to right, #8ca6db, #b993d6);
   color: #0a467e;
   font-weight: bold;
+}
+input::placeholder {
+  color: #fff;
+  letter-spacing: 1px;
+  text-align: center;
+}
+@media (max-width: 767px) {
+  input {
+    width: 100%;
+  }
 }
 .file {
   display: none;
