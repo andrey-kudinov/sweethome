@@ -450,6 +450,7 @@ export default {
   padding: 0;
   margin: 0;
   max-height: 0;
+  box-shadow: none;
   transition: 0.3s ease-out;
 }
 .op1 {
