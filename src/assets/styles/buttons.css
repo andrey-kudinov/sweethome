@@ -19,10 +19,27 @@
   color: #ffffff;
   transition: 0.3s;
   white-space: nowrap;
+  position: relative;
 }
-.btn_ligth-blue:hover {
+.btn_ligth-blue:before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  left: 51%;
+  right: 51%;
+  top: 0;
+  background: #8ca6db;
+  height: 45px;
+  transition: .4s;
+  opacity: .5;
+}
+.btn_ligth-blue:hover:before{
+  left: 0;
+  right: 0;
+}
+/* .btn_ligth-blue:hover {
   background: #168fc3b7;
-}
+} */
 .btn_ligth-blue:active {
   background: #1690c3;
 }

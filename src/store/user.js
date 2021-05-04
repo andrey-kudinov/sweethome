@@ -26,7 +26,7 @@ export default {
         const uid = await dispatch("getUid");
         await firebase
           .database()
-          .ref(`/users/${uid}/${user}`)
+          .ref(`/users/${uid}/${user}/name`)
           .update({ name });
       } catch (error) {
         commit("setError", error);

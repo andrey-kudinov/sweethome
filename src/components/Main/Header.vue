@@ -1,11 +1,11 @@
 <template>
   <div class="header">
-    <div class="time">{{ date | date("datetime") }}</div>
+    <div class="time">{{ date | date("datetime") }}, <br v-if="isMobile">{{ userEmail }}</div>
 
     <div class="profiles">
       <div class="profile">
         <div class="name">
-          {{ $root.user_1.name ? $root.user_1.name : "Nyuta" }}
+          {{ $root.user_1.name ? $root.user_1.name : "User_1" }}
         </div>
         <div class="avatar avatar_1">
           <img
@@ -24,7 +24,7 @@
 
       <div class="profile">
         <div class="name">
-          {{ $root.user_2.name ? $root.user_2.name : "Andrey" }}
+          {{ $root.user_2.name ? $root.user_2.name : "User_2" }}
         </div>
         <div class="avatar avatar_2">
           <img
@@ -102,7 +102,7 @@
 </template>
 
 <script>
-// import { mapActions } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   data() {
@@ -112,9 +112,13 @@ export default {
       interval_2: null,
       switch_1: true,
       switch_2: true,
+      userName: { user_1: null, user_2: null },
+      userEmail: "",
+      isMobile: false,
     };
   },
   mounted() {
+    this.start();
     this.changeFavicon();
     this.interval_1 = setInterval(() => {
       this.date = new Date();
@@ -128,13 +132,15 @@ export default {
     if (localStorage.avatar_2) {
       this.$root.user_2.avatar = localStorage.avatar_2;
     }
+    this.userEmail = localStorage.getItem("user") || "";
+    this.isMobile = window.innerWidth < 768 ? true : false;
   },
   beforeDestroy() {
     clearInterval(this.interval_1);
     clearInterval(this.interval_2);
   },
   methods: {
-    // ...mapActions(["fetchUserInfo"]),
+    ...mapActions(["fetchUserInfo"]),
     // async start() {
     //   this.info = await this.fetchNotes();
     //   this.notesAndrey = this.notes.filter((note) => note.name == "Andrey");
@@ -150,6 +156,14 @@ export default {
     //     this.loading = false;
     //   }, 3000);
     // },
+    async start() {
+      this.userName.user_1 = await this.fetchUserInfo("user_1");
+      this.userName.user_2 = await this.fetchUserInfo("user_2");
+      this.$root.user_1.name =
+        this.userName.user_1.filter((el) => el.id == "name")[0].name || "";
+      this.$root.user_2.name =
+        this.userName.user_2.filter((el) => el.id == "name")[0].name || "";
+    },
     changeFavicon() {
       const favicon = document.getElementById("favicon");
       const href = [
@@ -197,7 +211,7 @@ export default {
     display: grid;
     grid-template-columns: 1fr;
     place-items: center;
-    row-gap: 15px;
+    row-gap: 10px;
     padding: 20px 0;
   }
 }
@@ -215,18 +229,40 @@ export default {
 }
 @media all and (max-width: 767px) {
   .time {
-    justify-self: flex-start;
+    text-align: left;
+    padding: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+    line-height: 20px;
+    width: auto;
+    justify-self: start;
   }
 }
 .buttons {
   display: flex;
   margin-right: 15px;
 }
+@media all and (max-width: 767px) {
+  .buttons {
+    margin: 0;
+    margin-top: 5px;
+    position: absolute;
+    right: 15px;
+    top: 16px;
+  }
+}
 .btn_change {
   margin-right: 15px;
 }
 .btn_out {
   width: 180px;
+}
+@media all and (max-width: 767px) {
+  .btn_out {
+    width: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
 }
 a {
   text-decoration: none;
@@ -263,7 +299,6 @@ a {
 }
 @media all and (max-width: 767px) {
   .time,
-  .buttons,
   .profiles {
     margin: 0;
   }
