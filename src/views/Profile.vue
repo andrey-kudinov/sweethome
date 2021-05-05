@@ -26,7 +26,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["updateUserName", "updateUserAvatar"]),
+    ...mapActions(["updateUserName", "loadUserAvatar"]),
     async updateName(userId, userName) {
       const formData = {
         user: userId,
@@ -34,34 +34,44 @@ export default {
       };
       try {
         await this.updateUserName(formData);
-      } catch (e) {console.log("reg e -", e);}
+      } catch (e) {
+        console.log("reg e -", e);
+      }
     },
-    async updateAvatar(userId, userAvatar) {
+    async loadAvatar(userId, userAvatar) {
       const formData = {
         user: userId,
-        name: userAvatar,
+        avatar: userAvatar,
       };
       try {
-        await this.updateUserAvatar(formData);
-      } catch (e) {console.log("reg e -", e);}
+        console.log(formData);
+        await this.loadUserAvatar(formData);
+      } catch (e) {
+        console.log("reg e -", e);
+      }
     },
   },
   watch: {
     "user_1.avatar": function() {
       this.$root.user_1.avatar = this.user_1.avatar;
       localStorage.avatar_1 = this.user_1.avatar;
+      setTimeout(() => {
+        this.loadAvatar("user_1", this.user_1.avatar);
+      }, 1000);
     },
     "user_2.avatar": function() {
       this.$root.user_2.avatar = this.user_2.avatar;
       localStorage.avatar_2 = this.user_2.avatar;
+      this.loadAvatar("user_2", this.user_2.avatar);
     },
     "user_1.name": function() {
       this.$root.user_1.name = this.user_1.name;
-      this.updateName('user_1', this.user_1.name)
+      console.log(this.user_1.name);
+      this.updateName("user_1", this.user_1.name);
     },
     "user_2.name": function() {
       this.$root.user_2.name = this.user_2.name;
-      this.updateName('user_2', this.user_2.name)
+      this.updateName("user_2", this.user_2.name);
     },
   },
 };
@@ -110,7 +120,7 @@ export default {
 }
 @media all and (max-width: 767px) {
   .profiles {
-    grid-template-columns: 1fr
+    grid-template-columns: 1fr;
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <div class="text">
-      <div class="text_1">
+      <!-- <div class="text_1">
         <span>
           Сделано
           <a
@@ -11,9 +11,9 @@
             >Андреем Кудиновым</a
           >
         </span>
-      </div>
+      </div> -->
       <div class="text_2">
-        <span>для меня и Нюты </span>
+        <span>Сделано для меня и Нюты </span>
         <div class="img">
           <img :src="require('@/assets/img/heart.png')" alt="" />
         </div>

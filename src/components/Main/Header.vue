@@ -1,23 +1,26 @@
 <template>
   <div class="header">
-    <div class="time">{{ date | date("datetime") }}, <br v-if="isMobile">{{ userEmail }}</div>
+    <div class="time">
+      {{ date | date("datetime") }}, <br v-if="isMobile" />{{ userEmail }}
+    </div>
 
     <div class="profiles">
       <div class="profile">
         <div class="name">
           {{ $root.user_1.name ? $root.user_1.name : "User_1" }}
         </div>
-        <div class="avatar avatar_1">
+        <Loader v-if="loading_1" class="img-loader" />
+        <div class="avatar avatar_1" v-if="!loading_1">
           <img
             :src="
               $root.user_1.avatar
                 ? $root.user_1.avatar
-                : require('@/assets/img/cat.svg')
+                : require('@/assets/img/circle_blue.svg')
             "
             alt=""
           />
           <div class="tooltip tooltip_1">
-            <img :src="$root.user_1.avatar" alt="" />
+            <img :src="$root.user_1.avatar || require('@/assets/img/circle_blue.svg')" alt="" />
           </div>
         </div>
       </div>
@@ -26,17 +29,19 @@
         <div class="name">
           {{ $root.user_2.name ? $root.user_2.name : "User_2" }}
         </div>
-        <div class="avatar avatar_2">
+        <Loader v-if="loading_2" class="img-loader" />
+
+        <div class="avatar avatar_2" v-if="!loading_2">
           <img
             :src="
               $root.user_2.avatar
                 ? $root.user_2.avatar
-                : require('@/assets/img/circle_blue.svg')
+                : require('@/assets/img/cat.svg')
             "
             alt=""
           />
           <div class="tooltip tooltip_2">
-            <img :src="$root.user_2.avatar" alt="" />
+            <img :src="$root.user_2.avatar || require('@/assets/img/cat.svg')" alt="" />
           </div>
         </div>
       </div>
@@ -102,9 +107,13 @@
 </template>
 
 <script>
+import Loader from "@/components/Loader";
 import { mapActions } from "vuex";
 
 export default {
+  components: {
+    Loader,
+  },
   data() {
     return {
       date: new Date(),
@@ -115,10 +124,12 @@ export default {
       userName: { user_1: null, user_2: null },
       userEmail: "",
       isMobile: false,
+      loading_1: true,
+      loading_2: true,
     };
   },
-  mounted() {
-    this.start();
+  async mounted() {
+    await this.start();
     this.changeFavicon();
     this.interval_1 = setInterval(() => {
       this.date = new Date();
@@ -140,22 +151,7 @@ export default {
     clearInterval(this.interval_2);
   },
   methods: {
-    ...mapActions(["fetchUserInfo"]),
-    // async start() {
-    //   this.info = await this.fetchNotes();
-    //   this.notesAndrey = this.notes.filter((note) => note.name == "Andrey");
-    //   this.notesNyuta = this.notes.filter((note) => note.name == "Nyuta");
-    //   this.notesAndrey.forEach((element) => {
-    //     element.textHTML = element.text.replace(/(\r\n|\n|\r)/gm, "<br>");
-    //   });
-    //   this.notesNyuta.forEach((element) => {
-    //     element.textHTML = element.text.replace(/(\r\n|\n|\r)/gm, "<br>");
-    //   });
-    //   setTimeout(() => {
-    //     // ! дать насладиться лоадером
-    //     this.loading = false;
-    //   }, 3000);
-    // },
+    ...mapActions(["fetchUserInfo", "fetchUserAvatar"]),
     async start() {
       this.userName.user_1 = await this.fetchUserInfo("user_1");
       this.userName.user_2 = await this.fetchUserInfo("user_2");
@@ -163,6 +159,21 @@ export default {
         this.userName.user_1.filter((el) => el.id == "name")[0].name || "";
       this.$root.user_2.name =
         this.userName.user_2.filter((el) => el.id == "name")[0].name || "";
+      if (!localStorage.avatar_1) {
+        console.log(1);
+        localStorage.avatar_1 =
+          (await this.fetchUserAvatar("user_1")) || "";
+        this.loading_1 = false;
+      } else {
+        this.loading_1 = false;
+      }
+      if (!localStorage.avatar_2) {
+        localStorage.avatar_2 =
+          (await this.fetchUserAvatar("user_2")) || "";
+        this.loading_2 = false;
+      } else {
+        this.loading_2 = false;
+      }
     },
     changeFavicon() {
       const favicon = document.getElementById("favicon");
@@ -296,6 +307,8 @@ a {
   color: #0a467e;
   font-weight: bold;
   margin-right: 15px;
+  width: 80px;
+  text-align: right;
 }
 @media all and (max-width: 767px) {
   .time,
@@ -416,5 +429,17 @@ a {
 .switcher-wrap {
   display: flex;
   align-items: center;
+}
+.img-loader {
+  transform: rotate(45deg) scale(0.5);
+  margin-bottom: 4px;
+  width: 40px;
+  left: -20px;
+}
+@media all and (max-width: 767px) {
+  .img-loader {
+    height: 40px;
+    top: -20px;
+  }
 }
 </style>

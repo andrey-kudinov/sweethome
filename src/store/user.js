@@ -1,4 +1,5 @@
 import firebase from "firebase/app";
+import "firebase/storage";
 
 export default {
   actions: {
@@ -23,6 +24,7 @@ export default {
     },
     async updateUserName({ commit, dispatch }, { user, name }) {
       try {
+        console.log(name);
         const uid = await dispatch("getUid");
         await firebase
           .database()
@@ -33,13 +35,51 @@ export default {
         throw error;
       }
     },
-    async updateUserAvatar({ commit, dispatch }, { user, avatar }) {
+    async loadUserAvatar({ commit, dispatch }, { user, avatar }) {
       try {
         const uid = await dispatch("getUid");
         await firebase
-          .database()
-          .ref(`${uid}/${user}`)
-          .update(avatar);
+          .storage()
+          .ref(`${uid}`)
+          .child(`${user}`)
+          .putString(avatar, "data_url", { contentType: "image/jpg" });
+      } catch (error) {
+        commit("setError", error);
+        throw error;
+      }
+    },
+    async fetchUserAvatar({ commit, dispatch }, user) {
+      try {
+        const uid = await dispatch("getUid");
+        console.log(
+          (
+            await firebase
+              .storage()
+              .ref(`${uid}`)
+              .listAll()
+          ).items
+        );
+        if (
+          (
+            await firebase
+              .storage()
+              .ref(`${uid}`)
+              .listAll()
+          ).items &&
+          (
+            await firebase
+              .storage()
+              .ref(`${uid}`)
+              .listAll()
+          ).items.length > 1
+        ) {
+          const res = await firebase
+            .storage()
+            .ref(`${uid}/${user}`)
+            .getDownloadURL();
+          console.log(res);
+          return res;
+        }
       } catch (error) {
         commit("setError", error);
         throw error;

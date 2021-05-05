@@ -8,7 +8,7 @@
       <div class="card card_first" v-for="(card, i) in 1" :key="i">
         <div class="desc">
           <div class="smile">
-            <img :src="require('@/assets/img/circle_blue.svg')" alt="" />
+            <img :src="$root.user_1.avatar || require('@/assets/img/circle_blue.svg')" alt="" />
           </div>
         </div>
         <textarea
@@ -33,7 +33,7 @@
       <div class="card card_second" v-for="(card, i) in 1" :key="i">
         <div class="desc">
           <div class="smile">
-            <img :src="require('@/assets/img/cat.svg')" alt="" />
+            <img :src="$root.user_2.avatar || require('@/assets/img/cat.svg')" alt="" />
           </div>
         </div>
         <textarea name="" id="" class="textarea" v-model="text_2"></textarea>
@@ -176,6 +176,7 @@ export default {
   object-position: center;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 .textarea {
   width: 100%;

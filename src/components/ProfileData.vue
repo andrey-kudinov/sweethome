@@ -207,6 +207,9 @@ input::placeholder {
   input {
     width: 100%;
   }
+  .name {
+    height: 38px;
+  }
 }
 .file {
   display: none;

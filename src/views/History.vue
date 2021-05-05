@@ -42,7 +42,7 @@
               </transition>
               <div class="desc">
                 <div class="smile">
-                  <img :src="require('@/assets/img/circle_blue.svg')" alt="" />
+                  <img :src="$root.user_1.avatar ||  require('@/assets/img/circle_blue.svg')" alt="" />
                 </div>
               </div>
               <div class="date">{{ note.date }}</div>
@@ -129,7 +129,7 @@
               </transition>
               <div class="desc">
                 <div class="smile">
-                  <img :src="require('@/assets/img/cat.svg')" alt="" />
+                  <img :src="$root.user_2.avatar || require('@/assets/img/cat.svg')" alt="" />
                 </div>
               </div>
               <div class="date text-rose">{{ note.date }}</div>
@@ -225,7 +225,7 @@ export default {
       setTimeout(() => {
         // ! дать насладиться лоадером
         this.loading = false;
-      }, 3000);
+      }, 1000);
     },
     toEdit_1(i) {
       if (this.edit_1 == i) {
@@ -417,6 +417,7 @@ export default {
   object-position: center;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 .date {
   color: #0a467e;
