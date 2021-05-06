@@ -120,7 +120,7 @@ a {
   row-gap: 8px;
   column-gap: 3px;
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .social {
     right: 50%;
     bottom: 5px;

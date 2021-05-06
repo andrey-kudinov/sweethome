@@ -57,6 +57,7 @@ export default {
       { title: "Добавить", url: "/", exact: true },
       { title: "История", url: "/history" },
       { title: "Профиль", url: "/profile" },
+      { title: "Описание", url: "/info" },
       // { title: "Планирование", url: "/planning" },
       // { title: "Новая запись", url: "/record" },
       // { title: "Категории", url: "/categories" },
@@ -161,7 +162,7 @@ a:active {
   object-fit: cover;
   object-position: center;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .arrow {
     right: 20px;
     width: 15px;

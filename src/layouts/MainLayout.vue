@@ -62,7 +62,7 @@ export default {
   grid-area: hd;
   height: 100px;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .header {
     height: auto;
   }
@@ -75,7 +75,7 @@ export default {
   grid-area: main;
   display: flex;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .content {
     flex-direction: column;
   }
@@ -85,7 +85,7 @@ export default {
   width: 25%;
   transition: 0.3s;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .sidebar {
     width: 100%;
     transition: 0.7s ease;
@@ -94,7 +94,7 @@ export default {
 .sidebar-hide {
   width: 0;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .sidebar-hide {
     border-radius: 10px;
     padding: 8px 31px 25px 25px;
@@ -108,7 +108,7 @@ export default {
   place-items: center;
   transition: 0.3s;
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .page {
     width: 100%;
   }
@@ -117,7 +117,7 @@ export default {
   width: 100%;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .main {
     grid-template-areas:
       "hd hd hd hd hd hd hd hd hd hd hd hd"

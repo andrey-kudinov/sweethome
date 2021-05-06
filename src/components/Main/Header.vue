@@ -217,7 +217,7 @@ export default {
   align-items: center;
   justify-content: space-between;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .header {
     display: grid;
     grid-template-columns: 1fr;
@@ -238,7 +238,7 @@ export default {
   font-weight: bold;
   border-radius: 15px;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .time {
     text-align: left;
     padding: 0px;
@@ -253,7 +253,7 @@ export default {
   display: flex;
   margin-right: 15px;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .buttons {
     margin: 0;
     margin-top: 5px;
@@ -268,7 +268,7 @@ export default {
 .btn_out {
   width: 180px;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .btn_out {
     width: auto;
     padding-right: 15px;
@@ -286,7 +286,7 @@ a {
 .switchs {
   display: none;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .switchs {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -310,7 +310,7 @@ a {
   width: 80px;
   text-align: right;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .time,
   .profiles {
     margin: 0;
@@ -364,7 +364,7 @@ a {
   opacity: 1;
   left: 50%;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .tooltip {
     width: 90%;
     height: auto;
@@ -436,7 +436,7 @@ a {
   width: 40px;
   left: -20px;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .img-loader {
     height: 40px;
     top: -20px;

@@ -121,7 +121,7 @@ export default {
   padding: 40px 0;
   position: relative;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .home {
     grid-template-columns: 1fr;
     place-items: center;
@@ -138,7 +138,7 @@ export default {
 .cards_second {
   grid-column: 3/4;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .cards_first {
     grid-column: span 1;
   }
@@ -156,7 +156,7 @@ export default {
   background: linear-gradient(to right, #8ca6db, #b993d6);
   border-radius: 15px;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .card {
     width: 80vw;
     padding: 10px;

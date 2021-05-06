@@ -25,6 +25,13 @@ const routes = [
       import("@/views/Profile.vue"),
   },
   {
+    path: "/info",
+    name: "Info",
+    meta: { layout: "main", log: true },
+    component: () =>
+      import("@/views/Info.vue"),
+  },
+  {
     path: "/login",
     name: "Login",
     meta: { layout: "empty" },

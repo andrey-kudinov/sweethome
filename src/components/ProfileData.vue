@@ -169,7 +169,7 @@ export default {
   align-items: center;
   margin-bottom: 20px;
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .buttons {
     width: 100%;
   }
@@ -203,7 +203,7 @@ input::placeholder {
   letter-spacing: 1px;
   text-align: center;
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   input {
     width: 100%;
   }

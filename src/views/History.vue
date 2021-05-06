@@ -302,13 +302,13 @@ export default {
   padding: 40px 0;
   position: relative;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .home {
     /* min-height: 100vh; */
     padding: 20px 0;
   }
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .home {
     grid-template-columns: 1fr;
     place-items: center;
@@ -346,7 +346,7 @@ export default {
 .cards_second {
   grid-column: 3/4;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .cards_first {
     grid-column: span 1;
   }
@@ -369,7 +369,7 @@ export default {
   transition: 0.5s ease-in;
   opacity: 0;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .card {
     width: 80vw;
     padding: 10px;

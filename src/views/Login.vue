@@ -344,7 +344,7 @@ span {
 .text-false {
   opacity: 1;
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .form {
     width: 90vw;
   }

@@ -88,7 +88,7 @@ export default {
   column-gap: 40px;
   justify-items: center;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .profiles {
     grid-template-columns: 1fr;
     place-items: center;
@@ -99,7 +99,7 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .profile {
     margin-bottom: 20px;
   }
@@ -110,7 +110,7 @@ export default {
 .profile_second {
   grid-column: 3/4;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .profile_first {
     grid-column: span 1;
   }
@@ -118,7 +118,7 @@ export default {
     grid-column: span 1;
   }
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 768px) {
   .profiles {
     grid-template-columns: 1fr;
   }
