@@ -10,6 +10,18 @@
           {{ $root.user_1.name ? $root.user_1.name : "User_1" }}
         </div>
         <Loader v-if="loading_1" class="img-loader" />
+        <div class="bar_1" v-if="!loading_1">
+          <svg height="60" width="60">
+            <circle
+              cx="30"
+              cy="30"
+              r="25"
+              stroke="#428bca"
+              stroke-width="6"
+              fill="transparent"
+            />
+          </svg>
+        </div>
         <div class="avatar avatar_1" v-if="!loading_1">
           <img
             :src="
@@ -20,7 +32,12 @@
             alt=""
           />
           <div class="tooltip tooltip_1">
-            <img :src="$root.user_1.avatar || require('@/assets/img/circle_blue.svg')" alt="" />
+            <img
+              :src="
+                $root.user_1.avatar || require('@/assets/img/circle_blue.svg')
+              "
+              alt=""
+            />
           </div>
         </div>
       </div>
@@ -30,6 +47,18 @@
           {{ $root.user_2.name ? $root.user_2.name : "User_2" }}
         </div>
         <Loader v-if="loading_2" class="img-loader" />
+        <div class="bar_2" v-if="!loading_2">
+          <svg height="60" width="60">
+            <circle
+              cx="30"
+              cy="30"
+              r="25"
+              stroke="#428bca"
+              stroke-width="6"
+              fill="transparent"
+            />
+          </svg>
+        </div>
 
         <div class="avatar avatar_2" v-if="!loading_2">
           <img
@@ -41,7 +70,10 @@
             alt=""
           />
           <div class="tooltip tooltip_2">
-            <img :src="$root.user_2.avatar || require('@/assets/img/cat.svg')" alt="" />
+            <img
+              :src="$root.user_2.avatar || require('@/assets/img/cat.svg')"
+              alt=""
+            />
           </div>
         </div>
       </div>
@@ -49,31 +81,6 @@
 
     <div class="switchs">
       <div class="switch switch_1">
-        <div class="switch__selection-controls__input">
-          <input
-            type="checkbox"
-            class="switch__check"
-            v-model="$root.user_1.isShow"
-            @click="$root.user_1.isShow = !$root.user_1.isShow"
-          />
-          <div
-            class="switch__track"
-            :class="{
-              'is-actived': $root.user_1.isShow,
-            }"
-          ></div>
-          <div
-            class="switch__thumb"
-            :class="{
-              'is-actived': $root.user_1.isShow,
-            }"
-          >
-            {{ $root.user_1.isShow ? "Вкл" : "Выкл" }}
-          </div>
-        </div>
-      </div>
-
-      <div class="switch switch_2">
         <div class="switch__selection-controls__input">
           <input
             type="checkbox"
@@ -94,6 +101,31 @@
             }"
           >
             {{ $root.user_2.isShow ? "Вкл" : "Выкл" }}
+          </div>
+        </div>
+      </div>
+
+      <div class="switch switch_2">
+        <div class="switch__selection-controls__input">
+          <input
+            type="checkbox"
+            class="switch__check"
+            v-model="$root.user_1.isShow"
+            @click="$root.user_1.isShow = !$root.user_1.isShow"
+          />
+          <div
+            class="switch__track"
+            :class="{
+              'is-actived': $root.user_1.isShow,
+            }"
+          ></div>
+          <div
+            class="switch__thumb"
+            :class="{
+              'is-actived': $root.user_1.isShow,
+            }"
+          >
+            {{ $root.user_1.isShow ? "Вкл" : "Выкл" }}
           </div>
         </div>
       </div>
@@ -145,6 +177,11 @@ export default {
     }
     this.userEmail = localStorage.getItem("user") || "";
     this.isMobile = window.innerWidth < 768 ? true : false;
+    console.log(document.querySelector(".bar svg"));
+    setTimeout(() => {
+      document.querySelector(".bar_1 svg").style.strokeDashoffset = 251 - (this.$root.user_1.counter / this.$root.user_1.goal) * 251;
+      document.querySelector(".bar_2 svg").style.strokeDashoffset = 251 - (this.$root.user_2.counter / this.$root.user_2.goal) * 251;
+    }, 1000);
   },
   beforeDestroy() {
     clearInterval(this.interval_1);
@@ -160,16 +197,13 @@ export default {
       this.$root.user_2.name =
         this.userName.user_2.filter((el) => el.id == "name")[0].name || "";
       if (!localStorage.avatar_1) {
-        console.log(1);
-        localStorage.avatar_1 =
-          (await this.fetchUserAvatar("user_1")) || "";
+        localStorage.avatar_1 = (await this.fetchUserAvatar("user_1")) || "";
         this.loading_1 = false;
       } else {
         this.loading_1 = false;
       }
       if (!localStorage.avatar_2) {
-        localStorage.avatar_2 =
-          (await this.fetchUserAvatar("user_2")) || "";
+        localStorage.avatar_2 = (await this.fetchUserAvatar("user_2")) || "";
         this.loading_2 = false;
       } else {
         this.loading_2 = false;
@@ -222,7 +256,7 @@ export default {
     display: grid;
     grid-template-columns: 1fr;
     place-items: center;
-    row-gap: 10px;
+    row-gap: 15px;
     padding: 20px 0;
   }
 }
@@ -302,6 +336,7 @@ a {
 .profile {
   display: flex;
   align-items: center;
+  position: relative;
 }
 .name {
   color: #0a467e;
@@ -323,6 +358,7 @@ a {
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);
+  z-index: 1;
 }
 .avatar img {
   width: 100%;
@@ -357,7 +393,7 @@ a {
 .tooltip_1,
 .tooltip_2 {
   opacity: 0;
-  left: -100%;
+  left: -100vw;
 }
 .avatar_1:hover .tooltip_1,
 .avatar_2:hover .tooltip_2 {
@@ -442,4 +478,24 @@ a {
     top: -20px;
   }
 }
+.bar_1,
+.bar_2 {
+  position: absolute;
+  right: -10px;
+  bottom: -13px;
+}
+.bar_1 svg,
+.bar_2 svg {
+  transform: rotate(-90deg);
+  stroke-dasharray: 251; /* (2PI * 40px) */
+  stroke-dashoffset: 251;
+  transition: 0.5s ease;
+  /* animation: offsettozero 5s linear forwards; */
+}
+
+/* @keyframes offsettozero {
+  to {
+    stroke-dashoffset: 0;
+  }
+} */
 </style>

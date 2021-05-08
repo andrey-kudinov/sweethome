@@ -42,7 +42,13 @@
               </transition>
               <div class="desc">
                 <div class="smile">
-                  <img :src="$root.user_1.avatar ||  require('@/assets/img/circle_blue.svg')" alt="" />
+                  <img
+                    :src="
+                      $root.user_1.avatar ||
+                        require('@/assets/img/circle_blue.svg')
+                    "
+                    alt=""
+                  />
                 </div>
               </div>
               <div class="date">{{ note.date }}</div>
@@ -129,7 +135,12 @@
               </transition>
               <div class="desc">
                 <div class="smile">
-                  <img :src="$root.user_2.avatar || require('@/assets/img/cat.svg')" alt="" />
+                  <img
+                    :src="
+                      $root.user_2.avatar || require('@/assets/img/cat.svg')
+                    "
+                    alt=""
+                  />
                 </div>
               </div>
               <div class="date text-rose">{{ note.date }}</div>
@@ -272,7 +283,6 @@ export default {
           id: userId,
           enable: userEnable,
         };
-        console.log(noteData);
         await this.disableNote(noteData);
         this.start();
         setTimeout(() => {

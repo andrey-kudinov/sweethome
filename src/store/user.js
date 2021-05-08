@@ -24,7 +24,6 @@ export default {
     },
     async updateUserName({ commit, dispatch }, { user, name }) {
       try {
-        console.log(name);
         const uid = await dispatch("getUid");
         await firebase
           .database()
@@ -51,14 +50,6 @@ export default {
     async fetchUserAvatar({ commit, dispatch }, user) {
       try {
         const uid = await dispatch("getUid");
-        console.log(
-          (
-            await firebase
-              .storage()
-              .ref(`${uid}`)
-              .listAll()
-          ).items
-        );
         if (
           (
             await firebase
@@ -77,7 +68,6 @@ export default {
             .storage()
             .ref(`${uid}/${user}`)
             .getDownloadURL();
-          console.log(res);
           return res;
         }
       } catch (error) {

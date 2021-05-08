@@ -33,6 +33,11 @@
   transition: .4s;
   opacity: .5;
 }
+@media (max-width: 768px) {
+  .btn_ligth-blue:before {
+    height: 38px;
+  }
+}
 .btn_ligth-blue:hover:before{
   left: 0;
   right: 0;
@@ -76,6 +81,11 @@
   height: 45px;
   transition: .4s;
   opacity: .5;
+}
+@media (max-width: 768px) {
+  .btn_white:before {
+    height: 38px;
+  }
 }
 .btn_white:hover:before{
   left: 0;

@@ -44,7 +44,6 @@ export default {
         avatar: userAvatar,
       };
       try {
-        console.log(formData);
         await this.loadUserAvatar(formData);
       } catch (e) {
         console.log("reg e -", e);
@@ -66,7 +65,6 @@ export default {
     },
     "user_1.name": function() {
       this.$root.user_1.name = this.user_1.name;
-      console.log(this.user_1.name);
       this.updateName("user_1", this.user_1.name);
     },
     "user_2.name": function() {

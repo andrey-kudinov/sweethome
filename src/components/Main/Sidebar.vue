@@ -57,6 +57,7 @@ export default {
       { title: "Добавить", url: "/", exact: true },
       { title: "История", url: "/history" },
       { title: "Профиль", url: "/profile" },
+      { title: "Статистика", url: "/stats" },
       { title: "Описание", url: "/info" },
       // { title: "Планирование", url: "/planning" },
       // { title: "Новая запись", url: "/record" },
@@ -93,6 +94,7 @@ a {
   position: relative;
   overflow: hidden;
   transition: background 0.3s ease-in;
+  color: #0a467e;
 }
 a:before {
   content: "";
