@@ -201,7 +201,7 @@ export default {
           ? true
           : false;
     },
-    checkRegPassword() {
+    checkRegPassword() { 
       // * валидация regPassword
       if (!this.regPassword.length) {
         this.isRegPassword = true;
@@ -210,7 +210,7 @@ export default {
       this.isRegPassword = this.regPassword.length > 7 ? true : false;
     },
     async reg() {
-      if (!this.email.length || !this.isRegEmail) {
+      if (!this.regEmail.length || !this.isRegEmail) {
         this.isRegEmail = false;
         this.shake = true;
         setTimeout(() => {
@@ -220,7 +220,7 @@ export default {
           this.isRegEmail = true;
         }, 3000);
       }
-      if (!this.password.length || !this.isRegPassword) {
+      if (!this.regPassword.length || !this.isRegPassword) {
         this.isRegPassword = false;
         this.shake = true;
         setTimeout(() => {

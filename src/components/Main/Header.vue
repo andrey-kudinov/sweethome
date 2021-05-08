@@ -236,9 +236,9 @@ export default {
         });
       setTimeout(() => {
         document.querySelector(".bar_1 svg").style.strokeDashoffset =
-          251 - (this.$root.user_1.counter / this.$root.user_1.goal) * 251;
+         157 - (this.$root.user_1.counter / this.$root.user_1.goal) * 157;
         document.querySelector(".bar_2 svg").style.strokeDashoffset =
-          251 - (this.$root.user_2.counter / this.$root.user_2.goal) * 251;
+          157 - (this.$root.user_2.counter / this.$root.user_2.goal) * 157;
       }, 1000);
     },
 
@@ -528,8 +528,8 @@ a {
 .bar_1 svg,
 .bar_2 svg {
   transform: rotate(-90deg);
-  stroke-dasharray: 251; /* (2PI * 40px) */
-  stroke-dashoffset: 251;
+  stroke-dasharray: 157; /* (2PI * 40px) */
+  stroke-dashoffset: 157;
   transition: 0.5s ease;
   /* animation: offsettozero 5s linear forwards; */
 }

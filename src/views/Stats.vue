@@ -79,8 +79,7 @@ export default {
   margin-bottom: 10px;
   overflow: hidden;
 }
-.bar_1-line,
-.bar_2-line {
+.bar_1-line {
   height: 20px;
   width: 0%;
   left: 0;
@@ -89,6 +88,20 @@ export default {
     circle,
     rgba(238, 174, 202, 1) 0%,
     rgba(148, 187, 233, 1) 100%
+  );
+  position: absolute;
+  border-radius: 10px;
+  transition: 0.3s ease;
+}
+.bar_2-line {
+  height: 20px;
+  width: 0%;
+  left: 0;
+  right: 0;
+  background: radial-gradient(
+    circle,
+    rgba(148, 187, 233, 1) 0%,
+    rgba(238, 174, 202, 1) 100%
   );
   position: absolute;
   border-radius: 10px;

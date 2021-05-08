@@ -225,8 +225,12 @@ export default {
     ...mapActions(["fetchNotes", "updateNote", "disableNote"]),
     async start() {
       this.notes = await this.fetchNotes();
-      this.notesAndrey = this.notes.filter((note) => note.name == "Andrey").reverse();
-      this.notesNyuta = this.notes.filter((note) => note.name == "Nyuta").reverse();
+      this.notesAndrey = this.notes
+        .filter((note) => note.name == "Andrey")
+        .reverse();
+      this.notesNyuta = this.notes
+        .filter((note) => note.name == "Nyuta")
+        .reverse();
       this.notesAndrey.forEach((element) => {
         element.textHTML = element.text.replace(/(\r\n|\n|\r)/gm, "<br>");
       });
@@ -263,6 +267,8 @@ export default {
           // ! дать насладиться лоадером в кнопке
           await this.updateNote(noteData);
           this.start();
+          this.$root.user_1.counter = 0;
+          this.$root.user_2.counter = 0;
           this.edit_1 = null;
           this.edit_2 = null;
           this.toast.toast = true;
