@@ -225,8 +225,8 @@ export default {
     ...mapActions(["fetchNotes", "updateNote", "disableNote"]),
     async start() {
       this.notes = await this.fetchNotes();
-      this.notesAndrey = this.notes.filter((note) => note.name == "Andrey");
-      this.notesNyuta = this.notes.filter((note) => note.name == "Nyuta");
+      this.notesAndrey = this.notes.filter((note) => note.name == "Andrey").reverse();
+      this.notesNyuta = this.notes.filter((note) => note.name == "Nyuta").reverse();
       this.notesAndrey.forEach((element) => {
         element.textHTML = element.text.replace(/(\r\n|\n|\r)/gm, "<br>");
       });
