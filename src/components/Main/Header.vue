@@ -162,6 +162,7 @@ export default {
   },
   async mounted() {
     await this.start();
+    await this.bar();
     this.changeFavicon();
     this.interval_1 = setInterval(() => {
       this.date = new Date();
@@ -177,18 +178,13 @@ export default {
     }
     this.userEmail = localStorage.getItem("user") || "";
     this.isMobile = window.innerWidth < 768 ? true : false;
-    console.log(document.querySelector(".bar svg"));
-    setTimeout(() => {
-      document.querySelector(".bar_1 svg").style.strokeDashoffset = 251 - (this.$root.user_1.counter / this.$root.user_1.goal) * 251;
-      document.querySelector(".bar_2 svg").style.strokeDashoffset = 251 - (this.$root.user_2.counter / this.$root.user_2.goal) * 251;
-    }, 1000);
   },
   beforeDestroy() {
     clearInterval(this.interval_1);
     clearInterval(this.interval_2);
   },
   methods: {
-    ...mapActions(["fetchUserInfo", "fetchUserAvatar"]),
+    ...mapActions(["fetchUserInfo", "fetchUserAvatar", "fetchNotes"]),
     async start() {
       this.userName.user_1 = await this.fetchUserInfo("user_1");
       this.userName.user_2 = await this.fetchUserInfo("user_2");
@@ -209,6 +205,43 @@ export default {
         this.loading_2 = false;
       }
     },
+    async bar() {
+      this.notes = await this.fetchNotes();
+      this.notesAndrey = this.notes.filter((note) => note.name == "Andrey");
+      this.notesNyuta = this.notes.filter((note) => note.name == "Nyuta");
+      this.notesAndrey.forEach((element) => {
+        element.textHTML = element.text.replace(/(\r\n|\n|\r)/gm, "<br>");
+      });
+      this.notesNyuta.forEach((element) => {
+        element.textHTML = element.text.replace(/(\r\n|\n|\r)/gm, "<br>");
+      });
+      // ! подсчет дел
+      this.$root.user_1.counter = this.notesAndrey.filter(
+        (note) => note.enable
+      ).length;
+      this.notesAndrey
+        .filter((note) => note.enable)
+        .forEach((element) => {
+          if (!element.textHTML.match("<br>")) return;
+          this.$root.user_1.counter += element.textHTML.match(/<br>/g).length;
+        });
+      this.$root.user_2.counter = this.notesNyuta.filter(
+        (note) => note.enable
+      ).length;
+      this.notesNyuta
+        .filter((note) => note.enable)
+        .forEach((element) => {
+          if (!element.textHTML.match("<br>")) return;
+          this.$root.user_2.counter += element.textHTML.match(/<br>/g).length;
+        });
+      setTimeout(() => {
+        document.querySelector(".bar_1 svg").style.strokeDashoffset =
+          251 - (this.$root.user_1.counter / this.$root.user_1.goal) * 251;
+        document.querySelector(".bar_2 svg").style.strokeDashoffset =
+          251 - (this.$root.user_2.counter / this.$root.user_2.goal) * 251;
+      }, 1000);
+    },
+
     changeFavicon() {
       const favicon = document.getElementById("favicon");
       const href = [
@@ -234,6 +267,14 @@ export default {
       this.$root.user_2.avatar = "";
       localStorage.clear();
       this.$router.push("/login");
+    },
+  },
+  watch: {
+    "$root.user_1.counter": async function() {
+      await this.bar();
+    },
+    "$root.user_2.counter": async function() {
+      await this.bar();
     },
   },
 };

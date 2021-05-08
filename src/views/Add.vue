@@ -8,7 +8,12 @@
       <div class="card card_first" v-for="(card, i) in 1" :key="i">
         <div class="desc">
           <div class="smile">
-            <img :src="$root.user_1.avatar || require('@/assets/img/circle_blue.svg')" alt="" />
+            <img
+              :src="
+                $root.user_1.avatar || require('@/assets/img/circle_blue.svg')
+              "
+              alt=""
+            />
           </div>
         </div>
         <textarea
@@ -33,7 +38,10 @@
       <div class="card card_second" v-for="(card, i) in 1" :key="i">
         <div class="desc">
           <div class="smile">
-            <img :src="$root.user_2.avatar || require('@/assets/img/cat.svg')" alt="" />
+            <img
+              :src="$root.user_2.avatar || require('@/assets/img/cat.svg')"
+              alt=""
+            />
           </div>
         </div>
         <textarea name="" id="" class="textarea" v-model="text_2"></textarea>
@@ -90,6 +98,8 @@ export default {
         }, 2000);
         this.text_1 = "";
         this.text_2 = "";
+        this.$root.user_1.counter = 0;
+        this.$root.user_2.counter = 0;
       } catch (e) {
         console.log("add e -", e);
       }

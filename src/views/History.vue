@@ -284,6 +284,8 @@ export default {
           enable: userEnable,
         };
         await this.disableNote(noteData);
+        this.$root.user_1.counter = 0;
+        this.$root.user_2.counter = 0;
         this.start();
         setTimeout(() => {
           this.delOverlay = false;
