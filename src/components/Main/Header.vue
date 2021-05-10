@@ -22,7 +22,15 @@
             />
           </svg>
         </div>
-        <div class="avatar avatar_1" v-if="!loading_1">
+        <div
+          class="avatar avatar_1"
+          v-if="!loading_1"
+          @click="
+            modal.src =
+              $root.user_1.avatar || require('@/assets/img/circle_blue.svg');
+            modal.modal = true;
+          "
+        >
           <img
             :src="
               $root.user_1.avatar
@@ -31,14 +39,14 @@
             "
             alt=""
           />
-          <div class="tooltip tooltip_1">
+          <!-- <div class="tooltip tooltip_1">
             <img
               :src="
                 $root.user_1.avatar || require('@/assets/img/circle_blue.svg')
               "
               alt=""
             />
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -60,7 +68,14 @@
           </svg>
         </div>
 
-        <div class="avatar avatar_2" v-if="!loading_2">
+        <div
+          class="avatar avatar_2"
+          v-if="!loading_2"
+          @click="
+            modal.src = $root.user_2.avatar || require('@/assets/img/cat.svg');
+            modal.modal = true;
+          "
+        >
           <img
             :src="
               $root.user_2.avatar
@@ -69,12 +84,12 @@
             "
             alt=""
           />
-          <div class="tooltip tooltip_2">
+          <!-- <div class="tooltip tooltip_2">
             <img
               :src="$root.user_2.avatar || require('@/assets/img/cat.svg')"
               alt=""
             />
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -135,16 +150,26 @@
       <!-- <button class="btn btn_white btn_change" @click="changeFavicon">Сменить иконку</button> -->
       <button class="btn btn_white btn_out" @click="exit">Выйти</button>
     </div>
+    <Modal :modal="modal" />
+    <transition name="fade">
+      <div
+        class="overlay"
+        v-if="modal.modal"
+        @click="modal.modal = false"
+      ></div>
+    </transition>
   </div>
 </template>
 
 <script>
 import Loader from "@/components/Loader";
+import Modal from "@/components/Modal";
 import { mapActions } from "vuex";
 
 export default {
   components: {
     Loader,
+    Modal,
   },
   data() {
     return {
@@ -158,6 +183,10 @@ export default {
       isMobile: false,
       loading_1: true,
       loading_2: true,
+      modal: {
+        modal: false,
+        src: "",
+      },
     };
   },
   async mounted() {
@@ -236,7 +265,7 @@ export default {
         });
       setTimeout(() => {
         document.querySelector(".bar_1 svg").style.strokeDashoffset =
-         157 - (this.$root.user_1.counter / this.$root.user_1.goal) * 157;
+          157 - (this.$root.user_1.counter / this.$root.user_1.goal) * 157;
         document.querySelector(".bar_2 svg").style.strokeDashoffset =
           157 - (this.$root.user_2.counter / this.$root.user_2.goal) * 157;
       }, 1000);
@@ -528,15 +557,17 @@ a {
 .bar_1 svg,
 .bar_2 svg {
   transform: rotate(-90deg);
-  stroke-dasharray: 157; /* (2PI * 40px) */
+  stroke-dasharray: 157;
   stroke-dashoffset: 157;
   transition: 0.5s ease;
-  /* animation: offsettozero 5s linear forwards; */
 }
-
-/* @keyframes offsettozero {
-  to {
-    stroke-dashoffset: 0;
-  }
-} */
+.overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: -1000px;
+  background-color: rgba(148, 187, 233, 0.5);
+  z-index: 3;
+}
 </style>
