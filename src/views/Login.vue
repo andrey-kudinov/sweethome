@@ -1,10 +1,11 @@
 <template>
-  <div class="">
+  <div class="login">
     <link
       href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1"
       rel="stylesheet"
       type="text/css"
     />
+    <Toast :toast="toast" :class="{'showToast': toast.toast}"/>
     <transition
       name="custom-classes-transition"
       enter-active-class="animated tada"
@@ -102,9 +103,13 @@
 
 <script>
 import { mapActions } from "vuex";
+import Toast from "@/components/Toast";
 
 export default {
   name: "Login",
+  components: {
+    Toast,
+  },
   data() {
     return {
       isReg: false,
@@ -117,6 +122,9 @@ export default {
       isRegEmail: true,
       isRegPassword: true,
       shake: false,
+      toast: {
+        toast: false,
+      },
     };
   },
   methods: {
@@ -178,6 +186,11 @@ export default {
           localStorage.email = this.regEmail;
           this.$router.push("/");
         } catch (e) {
+          this.toast.toast = true;
+          this.toast.text = e.code;
+          setTimeout(() => {
+            this.toast.toast = false;
+          }, 5000);
           console.log("auth e -", e);
         }
       } else {
@@ -201,7 +214,7 @@ export default {
           ? true
           : false;
     },
-    checkRegPassword() { 
+    checkRegPassword() {
       // * валидация regPassword
       if (!this.regPassword.length) {
         this.isRegPassword = true;
@@ -243,6 +256,11 @@ export default {
         localStorage.email = this.regEmail;
         this.$router.push("/");
       } catch (e) {
+        this.toast.toast = true;
+        this.toast.text = e.code;
+        setTimeout(() => {
+          this.toast.toast = false;
+        }, 5000);
         console.log("reg e -", e);
       }
     },
@@ -257,6 +275,13 @@ export default {
 </script>
 
 <style scoped>
+.showToast {
+  right: 30px;
+  top: 30px;
+}
+.login {
+  position: relative;
+}
 .form {
   width: 500px;
   background-color: #fff;

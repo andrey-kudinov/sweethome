@@ -212,6 +212,7 @@ export default {
       text: "",
       toast: {
         toast: false,
+        text: 'Сохранено'
       },
       loading: true,
       btnLoading: false,
@@ -273,10 +274,10 @@ export default {
           this.edit_2 = null;
           this.toast.toast = true;
           setTimeout(() => {
-            // ! убрать тост через 2 секунды
+            // ! убрать тост через 3 секунды
             this.toast.toast = false;
             this.btnLoading = false;
-          }, 2000);
+          }, 3000);
         }, 1000);
       } catch (e) {
         console.log("updateNote e -", e);

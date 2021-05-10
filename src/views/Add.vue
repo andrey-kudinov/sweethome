@@ -79,6 +79,7 @@ export default {
       date: new Date(),
       toast: {
         toast: false,
+        text: "Сохранено"
       },
     };
   },
@@ -95,11 +96,11 @@ export default {
         this.toast.toast = true;
         setTimeout(() => {
           this.toast.toast = false;
-        }, 2000);
+        }, 3000);
         this.text_1 = "";
         this.text_2 = "";
-        this.$root.user_1.counter = 0;
-        this.$root.user_2.counter = 0;
+        this.$root.user_1.counter = -1;
+        this.$root.user_2.counter = -1;
       } catch (e) {
         console.log("add e -", e);
       }
