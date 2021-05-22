@@ -32,12 +32,23 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 let app;
+let date = new Date();
 
 firebase.auth().onAuthStateChanged(() => {
   if (!app) {
     app = new Vue({
       data() {
         return {
+          current: {
+            month: {
+              name: dateFilter(date, "month"),
+              id: +dateFilter(date, "mShort")
+            },
+            year: {
+              name: dateFilter(date, "year"),
+              id: +dateFilter(date, "year")-2020,
+            },
+          },
           user_1: {
             avatar: null,
             name: '',
@@ -51,7 +62,8 @@ firebase.auth().onAuthStateChanged(() => {
             isShow: true,
             counter: 0,
             goal: 40
-          }
+          },
+          
         }
       },
       router,

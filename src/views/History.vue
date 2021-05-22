@@ -36,7 +36,17 @@
                 enter-active-class="animated bounceInRight"
                 leave-active-class="animated bounceOutLeft"
               >
-                <div class="delete" v-if="edit_1 == i" @click="del(note.id)">
+                <div
+                  class="delete"
+                  v-if="edit_1 == i"
+                  @click="
+                    del(
+                      note.id,
+                      $root.current.month.name,
+                      $root.current.year.name
+                    )
+                  "
+                >
                   <img :src="require('@/assets/img/delete.svg')" alt="" />
                 </div>
               </transition>
@@ -87,7 +97,14 @@
                 <button
                   v-if="edit_1 == i"
                   class="btn btn_white btn_add"
-                  @click="update(note.id, note.text)"
+                  @click="
+                    update(
+                      note.id,
+                      note.text,
+                      $root.current.month.name,
+                      $root.current.year.name
+                    )
+                  "
                 >
                   {{ !btnLoading ? "Сохранить" : "" }}
                   <Loader
@@ -129,7 +146,17 @@
                 enter-active-class="animated bounceInRight"
                 leave-active-class="animated bounceOutLeft"
               >
-                <div class="delete" v-if="edit_2 == i" @click="del(note.id)">
+                <div
+                  class="delete"
+                  v-if="edit_2 == i"
+                  @click="
+                    del(
+                      note.id,
+                      $root.current.month.name,
+                      $root.current.year.name
+                    )
+                  "
+                >
                   <img :src="require('@/assets/img/delete.svg')" alt="" />
                 </div>
               </transition>
@@ -179,7 +206,14 @@
                 <button
                   v-if="edit_2 == i"
                   class="btn btn_white btn_add"
-                  @click="update(note.id, note.text)"
+                  @click="
+                    update(
+                      note.id,
+                      note.text,
+                      $root.current.month.name,
+                      $root.current.year.name
+                    )
+                  "
                 >
                   Сохранить
                 </button>
@@ -212,20 +246,26 @@ export default {
       text: "",
       toast: {
         toast: false,
-        text: 'Сохранено'
+        text: "Сохранено",
       },
       loading: true,
       btnLoading: false,
       delOverlay: false,
+      date: new Date(),
     };
   },
   mounted() {
-    this.start();
+    this.start(this.$root.current.month.name, this.$root.current.year.name);
   },
   methods: {
     ...mapActions(["fetchNotes", "updateNote", "disableNote"]),
-    async start() {
-      this.notes = await this.fetchNotes();
+    async start(userMonth, userYear) {
+      const noteData = {
+        month: userMonth,
+        year: userYear,
+      };
+      this.notes = await this.fetchNotes(noteData);
+      console.log("history notes -", this.notes);
       this.notesAndrey = this.notes
         .filter((note) => note.name == "Andrey")
         .reverse();
@@ -257,17 +297,22 @@ export default {
       }
       this.edit_2 = i;
     },
-    async update(userId, userText) {
+    async update(userId, userText, userMonth, userYear) {
       try {
         const noteData = {
           id: userId,
           text: userText,
+          month: userMonth,
+          year: userYear,
         };
         this.btnLoading = true;
         setTimeout(async () => {
           // ! дать насладиться лоадером в кнопке
           await this.updateNote(noteData);
-          this.start();
+          this.start(
+            this.$root.current.month.name,
+            this.$root.current.year.name
+          );
           this.$root.user_1.counter = 0;
           this.$root.user_2.counter = 0;
           this.edit_1 = null;
@@ -283,23 +328,43 @@ export default {
         console.log("updateNote e -", e);
       }
     },
-    async del(userId, userEnable = false) {
+    async del(userId, userMonth, userYear, userEnable = false) {
       this.delOverlay = true;
       try {
         const noteData = {
           id: userId,
           enable: userEnable,
+          month: userMonth,
+          year: userYear,
         };
         await this.disableNote(noteData);
         this.$root.user_1.counter = 0;
         this.$root.user_2.counter = 0;
-        this.start();
+        this.start(this.$root.current.month.name, this.$root.current.year.name);
         setTimeout(() => {
           this.delOverlay = false;
         }, 3000);
       } catch (e) {
         console.log("updateNote e -", e);
       }
+    },
+  },
+  watch: {
+    "$root.current.month": async function() {
+      await this.start(
+        this.$root.current.month.name,
+        this.$root.current.year.name
+      );
+      this.edit_1 = null;
+      this.edit_2 = null;
+    },
+    "$root.current.year": async function() {
+      await this.start(
+        this.$root.current.month.name,
+        this.$root.current.year.name
+      );
+      this.edit_1 = null;
+      this.edit_2 = null;
     },
   },
 };

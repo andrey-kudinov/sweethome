@@ -16,5 +16,6 @@ export default {
   display: grid;
   place-items: center;
   overflow: hidden;
+  position: relative;
 }
 </style>

@@ -65,7 +65,7 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some((record) => record.meta.log)) {
-    if (!localStorage.getItem("user")) {
+    if (!sessionStorage.getItem("user")) {
       return next({ path: "/login" });
     }
   }

@@ -5,7 +5,7 @@ export default {
     async logIn({ commit }, {email, password}) {
       try {
         await firebase.auth().signInWithEmailAndPassword(email, password)
-        localStorage.setItem("user", email);
+        sessionStorage.setItem("user", email);
       } catch (e) {
         commit('setError', e)
         throw e
@@ -30,7 +30,7 @@ export default {
           avatar: '',
           name: '',
         })
-        localStorage.setItem("user", email);
+        sessionStorage.setItem("user", email);
       } catch (e) {
         commit('setError', e)
         throw e

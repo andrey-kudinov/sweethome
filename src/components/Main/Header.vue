@@ -191,7 +191,7 @@ export default {
   },
   async mounted() {
     await this.start();
-    await this.bar();
+    await this.bar(this.$root.current.month.name, this.$root.current.year.name);
     this.changeFavicon();
     this.interval_1 = setInterval(() => {
       this.date = new Date();
@@ -205,7 +205,7 @@ export default {
     if (localStorage.avatar_2) {
       this.$root.user_2.avatar = localStorage.avatar_2;
     }
-    this.userEmail = localStorage.getItem("user") || "";
+    this.userEmail = sessionStorage.getItem("user") || "";
     this.isMobile = window.innerWidth < 768 ? true : false;
   },
   beforeDestroy() {
@@ -234,8 +234,13 @@ export default {
         this.loading_2 = false;
       }
     },
-    async bar() {
-      this.notes = await this.fetchNotes();
+    async bar(userMonth, userYear) {
+      const noteData = {
+        month: userMonth,
+        year: userYear,
+      };
+      this.notes = await this.fetchNotes(noteData);
+      console.log('bar notes - ', this.notes);
       this.notesAndrey = this.notes.filter((note) => note.name == "Andrey");
       this.notesNyuta = this.notes.filter((note) => note.name == "Nyuta");
       this.notesAndrey.forEach((element) => {
@@ -268,7 +273,7 @@ export default {
           157 - (this.$root.user_1.counter / this.$root.user_1.goal) * 157;
         document.querySelector(".bar_2 svg").style.strokeDashoffset =
           157 - (this.$root.user_2.counter / this.$root.user_2.goal) * 157;
-      }, 1000);
+      }, 100);
     },
 
     changeFavicon() {
@@ -295,15 +300,22 @@ export default {
       this.$root.user_1.avatar = "";
       this.$root.user_2.avatar = "";
       localStorage.clear();
+      sessionStorage.clear();
       this.$router.push("/login");
     },
   },
   watch: {
     "$root.user_1.counter": async function() {
-      await this.bar();
+      await this.bar(this.$root.current.month.name, this.$root.current.year.name);
     },
     "$root.user_2.counter": async function() {
-      await this.bar();
+      await this.bar(this.$root.current.month.name, this.$root.current.year.name);
+    },
+    "$root.current.month": async function() {
+      await this.bar(this.$root.current.month.name, this.$root.current.year.name);
+    },
+    "$root.current.year": async function() {
+      await this.bar(this.$root.current.month.name, this.$root.current.year.name);
     },
   },
 };

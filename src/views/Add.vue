@@ -27,7 +27,7 @@
         <button
           class="btn btn_white btn_add"
           v-if="isAdd"
-          @click="add(name_1, text_1)"
+          @click="add(name_1, text_1, $root.current.month.name, $root.current.year.name)"
         >
           Добавить
         </button>
@@ -48,7 +48,7 @@
         <button
           class="btn btn_white btn_add"
           v-if="isAdd"
-          @click="add(name_2, text_2)"
+          @click="add(name_2, text_2, $root.current.month.name, $root.current.year.name)"
         >
           Добавить
         </button>
@@ -85,12 +85,14 @@ export default {
   },
   methods: {
     ...mapActions(["createNote"]),
-    async add(userName, userText) {
+    async add(userName, userText, userMonth, userYear) {
       try {
         const note = await this.createNote({
           name: userName,
           text: userText,
           date: dateFilter(this.date, "date"),
+          month: userMonth,
+          year: userYear,
         });
         console.log("note -", note);
         this.toast.toast = true;
