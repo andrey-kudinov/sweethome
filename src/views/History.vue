@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" :class="{'_p0': !$root.user_2.isShow && !$root.user_1.isShow}">
     <transition name="fade">
       <div class="overlay" v-if="toast.toast"></div>
     </transition>
@@ -423,21 +423,19 @@ export default {
   grid-template-columns: 1fr minmax(350px, 1fr) minmax(350px, 1fr) 1fr;
   grid-template-rows: auto;
   column-gap: 40px;
-  row-gap: 20px;
   padding: 40px 0;
   position: relative;
 }
 @media all and (max-width: 768px) {
   .home {
-    /* min-height: 100vh; */
+    row-gap: 20px;
     padding: 20px 0;
-  }
-}
-@media all and (max-width: 768px) {
-  .home {
     grid-template-columns: 1fr;
     place-items: center;
   }
+}
+._p0 {
+  padding: 0;
 }
 .overlay {
   background: #fff;
@@ -481,7 +479,7 @@ export default {
 }
 .card {
   width: 350px;
-  max-height: 350px;
+  max-height: 380px;
   display: flex;
   flex-direction: column;
   padding: 15px;
@@ -496,8 +494,11 @@ export default {
 }
 @media all and (max-width: 768px) {
   .card {
-    width: 80vw;
-    padding: 10px;
+    width: 85vw;
+    padding: 15px;
+  }
+  .card:last-child {
+    margin-bottom: 0;
   }
 }
 .pen {
@@ -508,6 +509,12 @@ export default {
   cursor: pointer;
   transition: 0.3s ease-in;
   opacity: 0;
+}
+@media all and (max-width: 768px) {
+  .pen  {
+    right: 25px;
+    opacity: 1;
+  }
 }
 .delete {
   width: 30px;
@@ -552,7 +559,6 @@ export default {
 .text {
   color: #0a467e;
   font-weight: bold;
-  margin-bottom: 10px;
   text-align: left;
   padding: 0 10px;
 }
@@ -578,7 +584,6 @@ export default {
 }
 .btn_add {
   width: 100%;
-  margin-bottom: 15px;
 }
 .mh0 {
   padding: 0;
