@@ -24,7 +24,9 @@
 <script>
 export default {
   mounted() {
-    this.bar();
+    setTimeout(() => {
+      this.bar();
+    }, 300);
   },
   methods: {
     bar() {
@@ -37,11 +39,25 @@ export default {
     },
   },
   watch: {
-    "$root.user_1.counter": function() {
-      this.bar();
+    "$root.user_1.counter": async function() {
+      setTimeout(() => {
+        this.bar();
+      }, 300);
     },
-    "$root.user_2.counter": function() {
-      this.bar();
+    "$root.user_2.counter": async function() {
+      setTimeout(() => {
+        this.bar();
+      }, 300);
+    },
+    "$root.current.month": async function() {
+      setTimeout(() => {
+        this.bar();
+      }, 300);
+    },
+    "$root.current.year": async function() {
+      setTimeout(() => {
+        this.bar();
+      }, 300);
     },
   },
 };
@@ -91,7 +107,7 @@ export default {
   );
   position: absolute;
   border-radius: 10px;
-  transition: 0.3s ease;
+  transition: 0.7s ease;
 }
 .bar_2-line {
   height: 20px;
@@ -105,7 +121,7 @@ export default {
   );
   position: absolute;
   border-radius: 10px;
-  transition: 0.3s ease;
+  transition: 0.7s ease;
 }
 .counter {
   margin-bottom: 20px;
