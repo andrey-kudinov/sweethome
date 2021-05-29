@@ -84,7 +84,7 @@
 }
 @media (max-width: 768px) {
   .btn_white:before {
-    height: 38px;
+    height: 100%;
   }
 }
 .btn_white:hover:before{

@@ -463,7 +463,7 @@ span {
     right: 0;
     bottom: 0;
     margin-right: 5vw;
-    margin-bottom: 5vw;
+    margin-bottom: 15vw;
     transform: translate(0, 0%);
     height: auto;
     padding: 10px 20px;
