@@ -171,8 +171,9 @@ export default {
 }
 @media all and (max-width: 768px) {
   .card {
-    width: 80vw;
-    padding: 10px;
+    width: 85vw;
+    padding: 15px;
+    margin-bottom: 0;
   }
 }
 .desc {
