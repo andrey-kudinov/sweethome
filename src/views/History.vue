@@ -61,10 +61,28 @@
                   />
                 </div>
               </div>
-              <div class="date">{{ note.date }}</div>
+              <transition
+                name="custom-classes-transition"
+                enter-active-class="animated bounceInLeft"
+                leave-active-class="animated bounceOutLeft"
+              >
+                <div class="date" v-if="edit_1 != i">{{ note.date }}</div>
+              </transition>
               <transition
                 name="custom-classes-transition"
                 enter-active-class="animated bounceInRight"
+                leave-active-class="animated bounceOutRight"
+              >
+                <input
+                  type="text"
+                  class="input"
+                  v-if="edit_1 == i"
+                  v-model="note.date"
+                />
+              </transition>
+              <transition
+                name="custom-classes-transition"
+                enter-active-class="animated bounceInLeft"
                 leave-active-class="animated bounceOutLeft"
               >
                 <div
@@ -101,6 +119,7 @@
                     update(
                       note.id,
                       note.text,
+                      note.date,
                       $root.current.month.name,
                       $root.current.year.name
                     )
@@ -170,10 +189,30 @@
                   />
                 </div>
               </div>
-              <div class="date text-rose">{{ note.date }}</div>
+              <transition
+                name="custom-classes-transition"
+                enter-active-class="animated bounceInLeft"
+                leave-active-class="animated bounceOutLeft"
+              >
+                <div class="date text-rose" v-if="edit_2 != i">
+                  {{ note.date }}
+                </div>
+              </transition>
               <transition
                 name="custom-classes-transition"
                 enter-active-class="animated bounceInRight"
+                leave-active-class="animated bounceOutRight"
+              >
+                <input
+                  type="text"
+                  class="input"
+                  v-if="edit_2 == i"
+                  v-model="note.date"
+                />
+              </transition>
+              <transition
+                name="custom-classes-transition"
+                enter-active-class="animated bounceInLeft"
                 leave-active-class="animated bounceOutLeft"
               >
                 <div
@@ -210,6 +249,7 @@
                     update(
                       note.id,
                       note.text,
+                      note.date,
                       $root.current.month.name,
                       $root.current.year.name
                     )
@@ -297,11 +337,12 @@ export default {
       }
       this.edit_2 = i;
     },
-    async update(userId, userText, userMonth, userYear) {
+    async update(userId, userText, userDate, userMonth, userYear) {
       try {
         const noteData = {
           id: userId,
           text: userText,
+          date: userDate,
           month: userMonth,
           year: userYear,
         };
@@ -517,6 +558,14 @@ export default {
 }
 .text-rose {
   color: #7e0a7b;
+}
+.input {
+  width: 100%;
+  margin-bottom: 15px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
 }
 .textarea {
   width: 100%;

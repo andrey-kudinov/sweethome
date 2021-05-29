@@ -34,14 +34,14 @@ export default {
         throw error;
       }
     },
-    async updateNote({ commit, dispatch }, { text, id, month, year }) {
+    async updateNote({ commit, dispatch }, { text, date, id, month, year }) {
       try {
         const uid = await dispatch("getUid");
         await firebase
           .database()
           .ref(`/users/${uid}/notes/${year}/${month}`)
           .child(id)
-          .update({ text });
+          .update({ text, date });
       } catch (error) {
         commit("setError", error);
         throw error;
