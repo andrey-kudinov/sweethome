@@ -36,8 +36,7 @@
     </p>
     <h2>А что под капотом?</h2>
     <p>
-      Проект сделан на Vue 2.6.11 (в т.ч. vuex, vue-router). Для красоты
-      переходов подключил vuetify. Обрезка фотографий сделана с помощью
+      Проект сделан на Vue 2.6.11 (в т.ч. vuex, vue-router). Обрезка фотографий сделана с помощью
       vue-croppie. На бэке firebase.
       <a
         href="https://github.com/AndreyKudinov63/sweethome"

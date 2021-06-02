@@ -1,5 +1,8 @@
 <template>
-  <div class="home" :class="{'_p0': !$root.user_2.isShow && !$root.user_1.isShow}">
+  <div
+    class="home"
+    :class="{ _p0: !$root.user_2.isShow && !$root.user_1.isShow }"
+  >
     <transition name="fade">
       <div class="overlay" v-if="toast.toast"></div>
     </transition>
@@ -294,8 +297,8 @@ export default {
       date: new Date(),
     };
   },
-  mounted() {
-    this.start(this.$root.current.month.name, this.$root.current.year.name);
+  async mounted() {
+    await this.start(this.$root.current.month.name, this.$root.current.year.name);
   },
   methods: {
     ...mapActions(["fetchNotes", "updateNote", "disableNote"]),
@@ -483,7 +486,6 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 15px;
-  padding-bottom: 0;
   margin-bottom: 20px;
   background: linear-gradient(to right, #8ca6db, #b993d6);
   border-radius: 15px;
@@ -497,7 +499,10 @@ export default {
     width: 85vw;
     padding: 15px;
   }
-  .card:last-child {
+  .card_first:last-child {
+    margin-bottom: 0;
+  }
+  .card_second:last-child {
     margin-bottom: 0;
   }
 }
@@ -511,7 +516,7 @@ export default {
   opacity: 0;
 }
 @media all and (max-width: 768px) {
-  .pen  {
+  .pen {
     right: 25px;
     opacity: 1;
   }
@@ -590,7 +595,7 @@ export default {
   margin: 0;
   max-height: 0;
   box-shadow: none;
-  transition: 0.3s ease-out;
+  transition: 0.5s ease-out;
 }
 .op1 {
   opacity: 1;
