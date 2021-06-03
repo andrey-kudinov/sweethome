@@ -57,7 +57,7 @@
         <button class="btn btn_ligth-blue submit" @click.prevent="auth" type="submit">
           Войти
         </button>
-        <button class="btn btn_white submit" @click="isReg = !isReg">
+        <button class="btn btn_white submit" @click.prevent="isReg = !isReg">
           Перейти к регистрации
         </button>
       </form>
