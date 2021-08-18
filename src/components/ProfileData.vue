@@ -60,7 +60,7 @@
     </div>
 
     <div class="inputs">
-      <input type="text" class="name" v-model="name" placeholder="Имя"/>
+      <input type="text" class="name" v-model="name" placeholder="Имя" />
     </div>
 
     <button class="btn btn_white btn_save" @click="changeName">
@@ -81,10 +81,6 @@ export default {
       croppieImage: "",
       imageSelected: false,
       avatarBlob: "",
-      options: {
-        format: "jpeg",
-        circle: true,
-      },
       name: "",
     };
   },
@@ -108,6 +104,7 @@ export default {
         type: "base64",
         size: "original",
         format: "jpeg",
+        quality: "0.1",
       };
       this.$refs.croppieRef.result(options, (output) => {
         this.cropped = this.croppieImage = output;

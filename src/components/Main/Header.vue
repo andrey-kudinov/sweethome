@@ -216,9 +216,8 @@ export default {
       this.$root.user_2.name =
         this.userName.user_2.filter((el) => el.id == "name")[0].name || "";
       this.$root.user_1.avatar = (await this.fetchUserAvatar("user_1")) || "";
-      this.loading_1 = false;
-
       this.$root.user_2.avatar = (await this.fetchUserAvatar("user_2")) || "";
+      this.loading_1 = false;
       this.loading_2 = false;
     },
     async bar(userMonth, userYear) {
@@ -283,11 +282,17 @@ export default {
       favicon.href = href[Math.floor(Math.random() * href.length)];
     },
     async exit() {
-      await this.$store.dispatch("logout");
-      this.$root.user_1.avatar = "";
-      this.$root.user_2.avatar = "";
+      (this.$root.user_1.avatar = null),
+        (this.$root.user_1.name = ""),
+        (this.$root.user_1.isShow = true),
+        (this.$root.user_1.counter = 0),
+        (this.$root.user_2.name = ""),
+        (this.$root.user_2.isShow = true),
+        (this.$root.user_2.counter = 0),
+        (this.$root.user_2.avatar = "");
       localStorage.clear();
       sessionStorage.clear();
+      await this.$store.dispatch("logout");
       this.$router.push("/login");
     },
   },
