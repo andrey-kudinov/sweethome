@@ -94,7 +94,6 @@ export default {
           month: userMonth,
           year: userYear,
         });
-        console.log("note -", note);
         this.toast.toast = true;
         setTimeout(() => {
           this.toast.toast = false;

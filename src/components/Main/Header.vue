@@ -226,7 +226,6 @@ export default {
         year: userYear,
       };
       this.notes = await this.fetchNotes(noteData);
-      console.log("bar notes - ", this.notes);
       this.notesAndrey = this.notes.filter((note) => note.name == "Andrey");
       this.notesNyuta = this.notes.filter((note) => note.name == "Nyuta");
       this.notesAndrey.forEach((element) => {

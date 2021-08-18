@@ -308,7 +308,6 @@ export default {
         year: userYear,
       };
       this.notes = await this.fetchNotes(noteData);
-      console.log("history notes -", this.notes);
       this.notesAndrey = this.notes
         .filter((note) => note.name == "Andrey")
         .reverse();
