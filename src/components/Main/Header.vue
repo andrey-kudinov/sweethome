@@ -199,12 +199,6 @@ export default {
     this.interval_2 = setInterval(() => {
       this.changeFavicon();
     }, 10000);
-    if (localStorage.avatar_1) {
-      this.$root.user_1.avatar = localStorage.avatar_1;
-    }
-    if (localStorage.avatar_2) {
-      this.$root.user_2.avatar = localStorage.avatar_2;
-    }
     this.userEmail = sessionStorage.getItem("user") || "";
     this.isMobile = window.innerWidth < 768 ? true : false;
   },
@@ -221,18 +215,11 @@ export default {
         this.userName.user_1.filter((el) => el.id == "name")[0].name || "";
       this.$root.user_2.name =
         this.userName.user_2.filter((el) => el.id == "name")[0].name || "";
-      if (!localStorage.avatar_1) {
-        localStorage.avatar_1 = (await this.fetchUserAvatar("user_1")) || "";
-        this.loading_1 = false;
-      } else {
-        this.loading_1 = false;
-      }
-      if (!localStorage.avatar_2) {
-        localStorage.avatar_2 = (await this.fetchUserAvatar("user_2")) || "";
-        this.loading_2 = false;
-      } else {
-        this.loading_2 = false;
-      }
+      this.$root.user_1.avatar = (await this.fetchUserAvatar("user_1")) || "";
+      this.loading_1 = false;
+
+      this.$root.user_2.avatar = (await this.fetchUserAvatar("user_2")) || "";
+      this.loading_2 = false;
     },
     async bar(userMonth, userYear) {
       const noteData = {
@@ -240,7 +227,7 @@ export default {
         year: userYear,
       };
       this.notes = await this.fetchNotes(noteData);
-      console.log('bar notes - ', this.notes);
+      console.log("bar notes - ", this.notes);
       this.notesAndrey = this.notes.filter((note) => note.name == "Andrey");
       this.notesNyuta = this.notes.filter((note) => note.name == "Nyuta");
       this.notesAndrey.forEach((element) => {
@@ -305,17 +292,29 @@ export default {
     },
   },
   watch: {
-    "$root.user_1.counter": async function() {
-      await this.bar(this.$root.current.month.name, this.$root.current.year.name);
+    "$root.user_1.counter": async function () {
+      await this.bar(
+        this.$root.current.month.name,
+        this.$root.current.year.name
+      );
     },
-    "$root.user_2.counter": async function() {
-      await this.bar(this.$root.current.month.name, this.$root.current.year.name);
+    "$root.user_2.counter": async function () {
+      await this.bar(
+        this.$root.current.month.name,
+        this.$root.current.year.name
+      );
     },
-    "$root.current.month": async function() {
-      await this.bar(this.$root.current.month.name, this.$root.current.year.name);
+    "$root.current.month": async function () {
+      await this.bar(
+        this.$root.current.month.name,
+        this.$root.current.year.name
+      );
     },
-    "$root.current.year": async function() {
-      await this.bar(this.$root.current.month.name, this.$root.current.year.name);
+    "$root.current.year": async function () {
+      await this.bar(
+        this.$root.current.month.name,
+        this.$root.current.year.name
+      );
     },
   },
 };

@@ -53,14 +53,12 @@ export default {
   watch: {
     "user_1.avatar": function() {
       this.$root.user_1.avatar = this.user_1.avatar;
-      localStorage.avatar_1 = this.user_1.avatar;
       setTimeout(() => {
         this.loadAvatar("user_1", this.user_1.avatar);
       }, 1000);
     },
     "user_2.avatar": function() {
       this.$root.user_2.avatar = this.user_2.avatar;
-      localStorage.avatar_2 = this.user_2.avatar;
       this.loadAvatar("user_2", this.user_2.avatar);
     },
     "user_1.name": function() {
