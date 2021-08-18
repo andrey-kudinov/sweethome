@@ -359,7 +359,7 @@ export default {
           this.toast.toast = true;
           setTimeout(() => {
             this.toast.toast = false;
-          }, 3000);
+          }, 1500);
           this.btnLoading = false;
       } catch (e) {
         console.log("updateNote e -", e);
@@ -380,7 +380,7 @@ export default {
         this.start(this.$root.current.month.name, this.$root.current.year.name);
         setTimeout(() => {
           this.delOverlay = false;
-        }, 3000);
+        }, 1500);
       } catch (e) {
         console.log("updateNote e -", e);
       }

@@ -87,7 +87,7 @@ export default {
     ...mapActions(["createNote"]),
     async add(userName, userText, userMonth, userYear) {
       try {
-        const note = await this.createNote({
+        await this.createNote({
           name: userName,
           text: userText,
           date: dateFilter(this.date, "date"),
@@ -97,7 +97,7 @@ export default {
         this.toast.toast = true;
         setTimeout(() => {
           this.toast.toast = false;
-        }, 3000);
+        }, 1500);
         this.text_1 = "";
         this.text_2 = "";
         this.$root.user_1.counter = -1;
