@@ -37,3 +37,5 @@ npm run build
 ```
 https://andreykudinov63.github.io/sweethome/
 ```
+### License
+License: released under the MIT License
